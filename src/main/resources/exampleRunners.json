@@ -1,0 +1,19 @@
+{
+    "exampleRunners": [
+        {
+            "id": "default",
+            "factory": {
+                "type": "com.myjava.java.examples.DefaultExampleRunnerFactory",
+                "parameters": [
+                    {
+                        "type": "com.myjava.java.examples.ExampleRegistryFactory",
+                        "implType": "com.myjava.java.examples.InMemoryExampleRegistryFactory",
+                        "parameters": [
+                        ]
+                    }
+                    
+                ]
+            }
+        }
+    ]
+}
