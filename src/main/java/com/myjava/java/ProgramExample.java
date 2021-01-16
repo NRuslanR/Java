@@ -11,7 +11,7 @@ package com.myjava.java;
  */
 public abstract class ProgramExample {
     
-    public void run(Object... args)
+    public void run(Object... args) throws Exception
     {
         doBeforeRun();
         
@@ -30,24 +30,29 @@ public abstract class ProgramExample {
         
         finally
         {
-           
+           doOnClean();
         }
        
     }
     
-    protected void doBeforeRun()
+    protected void doBeforeRun() throws Exception
     {
     
     }
     
-    protected abstract void doRun(Object... args);
+    protected abstract void doRun(Object... args) throws Exception;
     
-    protected void doAfterRun()
+    protected void doAfterRun() throws Exception
     {
 
     }
 
     protected void doOnFail(Exception ex) {
 
+    }
+    
+    protected void doOnClean()
+    {
+        
     }
 }
