@@ -13,11 +13,4 @@ public class TacoCloudApplication {
 		SpringApplication.run(TacoCloudApplication.class, args);
 
 	}
-
-	@GetMapping("/test")
-	public String test(@RequestParam(value = "msg", defaultValue = "Test Message") String msg)
-	{
-		return String.format("%s", msg);
-	}
-
 }
