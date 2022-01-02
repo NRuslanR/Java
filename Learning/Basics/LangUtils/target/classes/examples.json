@@ -1,8 +1,0 @@
-{
-    "examples": [
-        {
-            "id": "default",
-            "type": "com.myjava.java.hibernate.examples.SimpleCRUDHibernateExample"
-        }
-    ]
-}

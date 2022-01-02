@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.*;
 import org.springframework.test.web.servlet.*;
 
-@WebMvcTest(HomeController.class)
+@WebMvcTest
 public class HomeControllerTest {
     
     @Autowired

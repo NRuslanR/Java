@@ -4,9 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,8 +35,11 @@ public class DesignTacoController {
 
         Type[] types = Ingredient.Type.values();
 
-        for (Type type : types)
-            model.addAttribute(type.toString(), filterByType(ingredients, type));
+        for (Type type : types) {
+            List<Ingredient> filteredIngredients = filterByType(ingredients, type);
+
+            model.addAttribute(type.toString().toLowerCase(), filteredIngredients);
+        }
 
         model.addAttribute("design", new Taco());
 
@@ -40,12 +47,18 @@ public class DesignTacoController {
     }
 
     private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-
+        
         return ingredients.stream().filter(i -> i.getType() == type).collect(Collectors.toList());
     }
 
     @PostMapping
-    public String handleDesign() {
-        return "design";
+    public String handleDesign(@Valid @ModelAttribute("design") Taco design, Errors errors) {
+
+        if (errors.hasErrors())
+            return "design";
+
+        log.info("Handle Taco design: " + design);
+
+        return "redirect:/orders/current";
     }
 }
