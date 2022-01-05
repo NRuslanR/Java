@@ -1,0 +1,99 @@
+package com.example.tacos.data;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import com.example.tacos.domain.Order;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Repository
+public class JdbcOrderRepository implements OrderRepository {
+
+    private final SimpleJdbcInsert orderInserter;
+    private final SimpleJdbcInsert tacosOrdersInserter;
+    private final ObjectMapper objectMapper;
+
+    @Autowired
+    public JdbcOrderRepository(JdbcTemplate jdbc)
+    {
+        orderInserter = new SimpleJdbcInsert(jdbc)
+                .withTableName("orders")
+                .usingGeneratedKeyColumns("id");
+
+        tacosOrdersInserter = new SimpleJdbcInsert(jdbc)
+                .withTableName("tacos_orders");
+
+        objectMapper = new ObjectMapper();
+    }
+    
+    @Override
+    public Order save(Order order) {
+        
+        Order savedOrder = saveOrder(order);
+
+        saveOrderTacos(savedOrder);
+
+        return savedOrder;
+    }
+
+    private Order saveOrder(Order order) {
+
+        order.setPlacedAt(new Date());
+
+        Map<String, Object> orderEntries =
+            objectMapper.convertValue(order, Map.class);
+        
+        orderEntries.put("placedAt", order.getPlacedAt());
+
+        long orderId = orderInserter.executeAndReturnKey(orderEntries).longValue();
+
+        order.setId(orderId);
+
+        return order;
+    }
+
+    private void saveOrderTacos(Order order) {
+
+        Map<String, Object>[] tacoOrderEntries = createTacoOrderEntriesFrom(order);
+
+        log.info("tacoOrderEntries: " + Arrays.toString(tacoOrderEntries));
+        
+        tacosOrdersInserter.executeBatch(tacoOrderEntries);
+    }
+
+    private Map<String, Object>[] createTacoOrderEntriesFrom(Order order) {
+        
+        return 
+            (Map<String, Object>[]) 
+                order
+                    .getTacos()
+                        .stream()
+                            .map(
+                                t -> {
+
+                                    Map<String, Object> tacoOrderEntry = 
+                                        new HashMap<String, Object>();
+
+                                    tacoOrderEntry.put("order_id", order.getId());
+                                    tacoOrderEntry.put("taco_id", t.getId());
+
+                                    return tacoOrderEntry;
+                                }
+                            )
+                        .collect(Collectors.toList())
+                        .toArray(Map[]::new);
+    }
+    
+}

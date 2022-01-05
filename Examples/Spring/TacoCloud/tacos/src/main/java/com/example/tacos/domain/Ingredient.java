@@ -1,6 +1,11 @@
 package com.example.tacos.domain;
 
+import javax.persistence.Entity;
+
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
 public class Ingredient {
