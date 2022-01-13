@@ -1,6 +1,7 @@
 package com.example.tacos.controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,8 +19,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import lombok.extern.slf4j.Slf4j;
 
-import com.example.tacos.data.IngredientRepository;
-import com.example.tacos.data.TacoRepository;
+import com.example.tacos.data.jpa.IngredientRepository;
+import com.example.tacos.data.jpa.TacoRepository;
 import com.example.tacos.domain.*;
 import com.example.tacos.domain.Ingredient.Type;
 
@@ -60,6 +61,8 @@ public class DesignTacoController {
         List<Ingredient> ingredients = new ArrayList<>();
 
         ingredientRepository.findAll().forEach(i -> ingredients.add(i));
+
+        log.info("Ingredients: " + Arrays.toString(ingredients.toArray()));
 
         Type[] types = Ingredient.Type.values();
 

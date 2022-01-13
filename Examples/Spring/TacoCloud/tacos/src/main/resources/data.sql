@@ -1,4 +1,4 @@
-delete from tacos_orders;
+delete from orders_tacos;
 delete from tacos_ingredients;
 delete from tacos;
 delete from orders;

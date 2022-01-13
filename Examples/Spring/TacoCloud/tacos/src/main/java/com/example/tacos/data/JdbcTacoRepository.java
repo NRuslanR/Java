@@ -46,7 +46,7 @@ public class JdbcTacoRepository implements TacoRepository {
         
         PreparedStatementCreatorFactory pscf = 
             new PreparedStatementCreatorFactory(
-                "insert into tacos (name, createdAt) values (?, ?)", 
+                "insert into tacos (name, created_at) values (?, ?)", 
                 Types.VARCHAR, Types.TIMESTAMP
             );
             
@@ -77,7 +77,7 @@ public class JdbcTacoRepository implements TacoRepository {
                 @Override
                 public void setValues(PreparedStatement ps, int i) throws SQLException {
                     
-                    String ingredientId = taco.getIngredients().get(i);
+                    String ingredientId = taco.getIngredients().get(i).getId();
 
                     ps.setLong(1, taco.getId());
                     ps.setString(2, ingredientId);

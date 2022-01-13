@@ -95,11 +95,11 @@
 
         <div>
             <label for="street">Credit Card CVV: </label>
-            <input type="text" th:field="*{ccCVV}" />
+            <input type="text" th:field="*{ccCvv}" />
             <span 
                 class="validationError" 
-                th:if="${#fields.hasErrors('ccCVV')}" 
-                th:errors="*{ccCVV}"
+                th:if="${#fields.hasErrors('ccCvv')}" 
+                th:errors="*{ccCvv}"
             ></span>
         </div>
 

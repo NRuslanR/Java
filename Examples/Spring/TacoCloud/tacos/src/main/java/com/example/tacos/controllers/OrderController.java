@@ -16,8 +16,10 @@ import java.util.Arrays;
 
 import javax.validation.Valid;
 
-import com.example.tacos.data.OrderRepository;
+import com.example.tacos.data.jpa.OrderRepository;
+
 import com.example.tacos.domain.*;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -35,9 +37,9 @@ public class OrderController {
     }
 
     @ModelAttribute("order")
-    public Order order()
+    public com.example.tacos.domain.Order order()
     {
-        return new Order();
+        return new com.example.tacos.domain.Order();
     }
 
     @GetMapping("/current")

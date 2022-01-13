@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import com.example.tacos.domain.Order;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.CaseFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,7 +34,7 @@ public class JdbcOrderRepository implements OrderRepository {
                 .usingGeneratedKeyColumns("id");
 
         tacosOrdersInserter = new SimpleJdbcInsert(jdbc)
-                .withTableName("tacos_orders");
+                .withTableName("order_tacos");
 
         objectMapper = new ObjectMapper();
     }
@@ -52,10 +53,26 @@ public class JdbcOrderRepository implements OrderRepository {
 
         order.setPlacedAt(new Date());
 
-        Map<String, Object> orderEntries =
-            objectMapper.convertValue(order, Map.class);
-        
-        orderEntries.put("placedAt", order.getPlacedAt());
+        Map<String, Object> orderEntries = 
+            ((Map<String, Object>)objectMapper.convertValue(order, Map.class))
+                .entrySet()
+                    .stream()
+                        .collect(
+                            HashMap::new, 
+                            (m, e) -> 
+                                m.put(
+                                    CaseFormat.LOWER_CAMEL.to(
+                                        CaseFormat.LOWER_UNDERSCORE,
+                                        e.getKey()
+                                    ),
+                                    e.getValue()
+                                ), 
+                            HashMap::putAll
+                        );
+
+        log.info("order entries: " + orderEntries);
+
+        orderEntries.put("placed_at", order.getPlacedAt());
 
         long orderId = orderInserter.executeAndReturnKey(orderEntries).longValue();
 

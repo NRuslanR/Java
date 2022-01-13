@@ -4,8 +4,6 @@ import org.hamcrest.Matchers;
 import org.springframework.test.web.servlet.request.*;
 import org.springframework.test.web.servlet.result.*;
 
-import com.example.tacos.controllers.HomeController;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.boot.test.autoconfigure.web.servlet.*;
