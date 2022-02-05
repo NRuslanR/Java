@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Taco Cloud - Login</title>
+        <link rel="stylesheet" th:href="@{/styles.css}" />
+    </head>
+
+    <body>
+        <h1>Login to Taco Cloud</h1>
+        <img th:src="@{/images/TacoCloud.jpg}"/>
+
+        <div th:if="${error}">
+            <h3>Unable to log in. Check your username and password</h3>
+        </div>
+
+        <h3>Are you new in Taco Cloud ? <a th:href="@{/register}">Register</a> for log in</h3>
+
+        <form method="post" th:action="@{/login}" id="loginForm">
+            <div>
+                <label for="username">Username: </label>
+                <input type="text" name="username" id="username" />
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" />
+            </div>
+            <input type="submit" value="Login" >
+            <input type="hidden" name="_csrf" th:value="${_csrf?.token}" />
+        </form>
+    </body>
+</html>

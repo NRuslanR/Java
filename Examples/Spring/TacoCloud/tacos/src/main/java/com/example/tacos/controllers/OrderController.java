@@ -2,6 +2,9 @@ package com.example.tacos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import java.security.Principal;
 import java.util.Arrays;
 
 import javax.validation.Valid;
@@ -52,13 +56,16 @@ public class OrderController {
     public String processOrder(
             @Valid com.example.tacos.domain.Order order,
             Errors errors,
-            SessionStatus sessionStatus
+            SessionStatus sessionStatus,
+            @AuthenticationPrincipal User user
     ) {
 
         if (errors.hasErrors())
             return "order";
-
+        
         log.info("order's tacos: " + Arrays.toString(order.getTacos().toArray()));
+  
+        order.setUser(user);
         
         orderRepository.save(order);
 
