@@ -104,6 +104,7 @@
         </div>
 
         <input type="submit" value="Submit order" />
+        <input type="hidden" name="_csrf" th:value="${_csrf?.token}" />
 
     </form>
 

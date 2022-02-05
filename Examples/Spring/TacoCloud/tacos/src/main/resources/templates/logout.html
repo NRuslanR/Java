@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Taco Cloud - Login</title>
+        <link rel="stylesheet" th:href="@{/styles.css}" />
+    </head>
+
+    <body>
+        <h1>Logout From Taco Cloud</h1>
+        <img th:src="@{/images/TacoCloud.jpg}"/>
+
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" value="Log Out" />
+            <input type="hidden" name="_csrf" th:value="${_csrf?.token}" />
+        </form>
+    </body>
+</html>
