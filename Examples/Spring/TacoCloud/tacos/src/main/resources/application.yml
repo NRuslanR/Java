@@ -1,6 +1,63 @@
+logging:
+    level:
+        taco: INFO
+
+taco:
+    orders:
+        pageSize: 10
+
 spring:
+    profiles:
+        active: 
+        - prod
+    jpa:
+        show-sql: true
+
+---
+spring:
+    profiles: dev
+
     thymeleaf:
         cache: false
+
+    jpa:
+        hibernate:
+            ddl-auto: update
+        generate-ddl: true
+        database: h2
+
+    sql:
+        init:
+            schema-locations:
+            - classpath:schema.sql
+            data-locations:
+            - classpath:data.sql
+---
+spring:
+    profiles: prod
+
+    thymeleaf:
+        cache: true
+
+    datasource:
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://localhost:5432/tacos
+        username: taco_user
+        password: 123456
+    
     jpa:
         hibernate:
             ddl-auto: validate
+        database: postgresql
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        show-sql: true
+        generate-ddl: false
+
+logging:
+    level:
+        tacos: WARN
+
+taco:
+    orders:
+        pageSize: 15
+
