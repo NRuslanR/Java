@@ -32,6 +32,8 @@ spring:
             - classpath:schema.sql
             data-locations:
             - classpath:data.sql
+server:
+    port: 8081
 ---
 spring:
     profiles: prod
@@ -53,6 +55,9 @@ spring:
         show-sql: true
         generate-ddl: false
 
+server:
+    port: 8081
+    
 logging:
     level:
         tacos: WARN
