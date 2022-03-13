@@ -1,13 +1,16 @@
 package com.example.tacos.api.controllers;
 
-import java.lang.StackWalker.Option;
 import java.util.Optional;
 
+import com.example.tacos.api.resources.OrderModel;
+import com.example.tacos.api.resources.assemblers.OrderModelAssembler;
 import com.example.tacos.data.jpa.OrderRepository;
 import com.example.tacos.domain.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,25 +28,43 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderApiController {
 
     private final OrderRepository orderRepository;
+    private final OrderModelAssembler orderModelAssembler;
 
     @Autowired
-    public OrderApiController(OrderRepository orderRepository)
+    public OrderApiController(
+        OrderRepository orderRepository,
+        OrderModelAssembler orderModelAssembler
+    )
     {
         this.orderRepository = orderRepository;
+        this.orderModelAssembler = orderModelAssembler;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Iterable<Order>> GetOrders()
+    public ResponseEntity<CollectionModel<OrderModel>> GetOrders()
     {
-        Optional<Iterable<Order>> orders = Optional.ofNullable(orderRepository.findAll());
+        Iterable<Order> orders = orderRepository.findAll();
 
-        return ResponseEntity.of(orders);
+        CollectionModel<OrderModel> model = orderModelAssembler.toCollectionModel(orders);
+            
+        model.add(
+            WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(OrderApiController.class).GetOrders()
+            ).withSelfRel()
+        );
+
+        return ResponseEntity.ok(model);
     }
     
     @RequestMapping(method = RequestMethod.GET, path = "/{orderId}")
-    public ResponseEntity<Order> GetOrderById(@PathVariable("orderId") long orderId)
+    public ResponseEntity<OrderModel> GetOrderById(@PathVariable("orderId") long orderId)
     {
-        return ResponseEntity.of(orderRepository.findById(orderId));
+        Optional<Order> order = orderRepository.findById(orderId);
+
+        if (order.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(orderModelAssembler.toModel(order.get()));
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")

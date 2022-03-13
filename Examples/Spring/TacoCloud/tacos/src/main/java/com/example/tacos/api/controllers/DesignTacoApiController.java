@@ -2,16 +2,19 @@ package com.example.tacos.api.controllers;
 
 import java.util.Optional;
 
+import com.example.tacos.api.resources.TacoModel;
+import com.example.tacos.api.resources.assemblers.TacoModelAssembler;
 import com.example.tacos.data.OrderRepository;
 import com.example.tacos.data.jpa.TacoRepository;
 import com.example.tacos.domain.Taco;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,34 +32,63 @@ import org.springframework.web.bind.annotation.RestController;
 public class DesignTacoApiController {
     
     private final TacoRepository tacoRepository;
-
+    private final TacoModelAssembler tacoModelAssembler;
+    
     @Autowired
     public DesignTacoApiController(
-        TacoRepository tacoRepository
+        TacoRepository tacoRepository,
+        TacoModelAssembler tacoModelAssembler
     ) {
         this.tacoRepository = tacoRepository;
+        this.tacoModelAssembler = tacoModelAssembler;
     }
 
     @GetMapping
-    public Iterable<Taco> GetAllTacos()
+    public ResponseEntity<CollectionModel<TacoModel>> GetAllTacos()
     {
-        return tacoRepository.findAll();
+        Iterable<Taco> tacos = tacoRepository.findAll();
+
+        CollectionModel<TacoModel> tacosModel = tacoModelAssembler.toCollectionModel(tacos);
+
+        tacosModel.add(
+            WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(DesignTacoApiController.class).GetAllTacos()
+            ).withSelfRel()
+        );
+
+        return ResponseEntity.ok(tacosModel);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/recent")
-    public Iterable<Taco> GetRecentTacos()
+    public ResponseEntity<CollectionModel<TacoModel>> GetRecentTacos()
     {
         PageRequest pageRequest = PageRequest.of(0, 12, Sort.by(Direction.DESC, "createdAt"));
 
-        return tacoRepository.findAll(pageRequest).getContent();
+        Iterable<Taco> recentTacos = tacoRepository.findAll(pageRequest).getContent();
+
+        CollectionModel<TacoModel> model = tacoModelAssembler.toCollectionModel(recentTacos);
+
+        model.add(
+            WebMvcLinkBuilder.linkTo(
+                WebMvcLinkBuilder.methodOn(
+                    DesignTacoApiController.class
+                )
+                .GetRecentTacos()
+            ).withRel("recents")
+        );
+
+        return ResponseEntity.ok(model);
     }
     
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    public ResponseEntity<Taco> GetTacoById(@PathVariable("id") long tacoId)
+    public ResponseEntity<TacoModel> GetTacoById(@PathVariable("id") long tacoId)
     {
         Optional<Taco> taco = tacoRepository.findById(tacoId);
 
-        return ResponseEntity.of(taco);
+        if (taco.isEmpty())
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(tacoModelAssembler.toModel(taco.get()));
     }
 
     @RequestMapping(
