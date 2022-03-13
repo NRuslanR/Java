@@ -6,10 +6,12 @@ import java.util.Date;
 import com.example.tacos.domain.User;
 
 import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import lombok.Data;
 
 @Data
+@Relation(value = "order", collectionRelation = "orders")
 public class OrderModel extends RepresentationModel<OrderModel> {
     
     private long id;
@@ -26,4 +28,7 @@ public class OrderModel extends RepresentationModel<OrderModel> {
     private Collection<TacoModel> tacoModels;
 
     private CustomerModel customerModel;
+    private Collection<TacoModel> tacos;
+
+    private CustomerModel customer;
 }

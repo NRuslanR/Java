@@ -54,7 +54,7 @@ public class TacoModelAssembler extends RepresentationModelAssemblerSupport<Taco
                         .map(i -> ingredientModelAssembler.toModel(i))
                         .collect(Collectors.toList());
 
-        model.setIngredientModels(ingredientModels);
+        model.setIngredients(ingredientModels);
         
         return model;
     }

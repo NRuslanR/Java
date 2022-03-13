@@ -56,7 +56,7 @@ public class OrderModelAssembler extends RepresentationModelAssemblerSupport<Ord
 
         CustomerModel customerModel = customerModelAssembler.toModel(entity.getUser());
 
-        model.setCustomerModel(customerModel);
+        model.setCustomer(customerModel);
 
         model.setId(entity.getId());
         model.setName(entity.getName());
@@ -71,7 +71,7 @@ public class OrderModelAssembler extends RepresentationModelAssemblerSupport<Ord
                         .map(t -> tacoModelAssembler.toModel(t))
                         .collect(Collectors.toList());
 
-        model.setTacoModels(tacoModels);
+        model.setTacos(tacoModels);
 
         return model;
     }

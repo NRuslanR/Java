@@ -1,12 +1,12 @@
 package com.example.tacos.api.resources;
 
-import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.RepresentationModel;
-import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
+import org.springframework.hateoas.server.core.Relation;
 
 import lombok.Data;
 
 @Data
+@Relation(value = "ingredient", collectionRelation = "ingredients")
 public class IngredientModel extends RepresentationModel<IngredientModel> {
     
     private String id;
