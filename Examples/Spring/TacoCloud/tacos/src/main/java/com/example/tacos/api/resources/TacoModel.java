@@ -16,7 +16,7 @@ public class TacoModel extends RepresentationModel<TacoModel> {
     private long id;
     private Date createdAt;
     private String name;
-    private Collection<IngredientModel> ingredientModels;
+
     private Collection<IngredientModel> ingredients;
 
 }

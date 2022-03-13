@@ -25,9 +25,6 @@ public class OrderModel extends RepresentationModel<OrderModel> {
     private String ccExpiration;
     private String ccCvv;
 
-    private Collection<TacoModel> tacoModels;
-
-    private CustomerModel customerModel;
     private Collection<TacoModel> tacos;
 
     private CustomerModel customer;
