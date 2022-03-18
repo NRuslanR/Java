@@ -54,6 +54,9 @@ spring:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
         generate-ddl: false
+    data:
+        rest:
+            base-path: /api/v2
 
 server:
     port: 8081

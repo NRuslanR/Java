@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-
 @Relation(value = "customer")
 public class CustomerModel extends RepresentationModel<CustomerModel> {
     
