@@ -1,5 +1,6 @@
 package com.example.tacos.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -23,8 +24,10 @@ import lombok.Data;
 @Entity
 @Table(name = "tacos")
 @RestResource(rel = "tacos", path = "tacos")
-public class Taco {
+public class Taco implements Serializable {
 
+    private static final long serialVersionUID = 5877377659834274594L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

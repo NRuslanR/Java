@@ -32,6 +32,15 @@ spring:
             - classpath:schema.sql
             data-locations:
             - classpath:data.sql
+    artemis:
+        broker-url: tcp://localhost:61617
+        user: tacoweb
+        password: 123456
+
+    jms:
+        template: 
+            default-destination: tacocloud.orders.queue
+            
 server:
     port: 8081
 ---

@@ -30,6 +30,7 @@ import com.example.tacos.data.jpa.OrderRepository;
 
 import com.example.tacos.domain.*;
 import com.example.tacos.props.OrderProps;
+import com.example.tacos.services.messaging.OrderMessagingService;
 import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
@@ -46,12 +47,18 @@ public class OrderController {
 
     private OrderRepository orderRepository;
     private OrderProps orderProps;
+    private OrderMessagingService orderMessagingService;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository, OrderProps orderProps)
+    public OrderController(
+        OrderRepository orderRepository,
+        OrderProps orderProps,
+        OrderMessagingService orderMessagingService
+    )
     {
         this.orderRepository = orderRepository;
         this.orderProps = orderProps;
+        this.orderMessagingService = orderMessagingService;
     }
 
     @ModelAttribute("order")
@@ -84,6 +91,8 @@ public class OrderController {
         orderRepository.save(order);
 
         sessionStatus.setComplete();
+        
+        orderMessagingService.sendOrder(order);
         
         log.info("Processed order: " + order);
         

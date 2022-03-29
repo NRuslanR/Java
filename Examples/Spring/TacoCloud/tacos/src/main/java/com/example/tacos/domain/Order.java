@@ -1,5 +1,6 @@
 package com.example.tacos.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +27,10 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "orders")
-public class Order {
+public class Order implements Serializable {
 
+    private static final long serialVersionUID = 3L;
+    
     public Order()
     {
         tacos = new ArrayList<>();

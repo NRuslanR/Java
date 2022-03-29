@@ -23,6 +23,7 @@ import com.example.tacos.data.jpa.IngredientRepository;
 import com.example.tacos.data.jpa.TacoRepository;
 import com.example.tacos.domain.*;
 import com.example.tacos.domain.Ingredient.Type;
+import com.example.tacos.services.messaging.OrderReceivingService;
 
 @Slf4j
 @Controller
@@ -32,15 +33,18 @@ public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
     private final TacoRepository tacoRepository;
+    private final OrderReceivingService orderReceivingService;
 
     @Autowired
     public DesignTacoController(
         IngredientRepository ingredientRepository,
-        TacoRepository tacoRepository
+        TacoRepository tacoRepository,
+        OrderReceivingService orderReceivingService
     )
     {
         this.ingredientRepository = ingredientRepository;
         this.tacoRepository = tacoRepository;
+        this.orderReceivingService = orderReceivingService;
     }
 
     @ModelAttribute(name = "taco")
@@ -99,5 +103,13 @@ public class DesignTacoController {
         log.info("Handle Taco design: " + design);
 
         return "redirect:/orders/current";
+    }
+
+    @GetMapping("/msgs/orders")
+    public void showOrderMessage() throws Exception
+    {
+        Order order = orderReceivingService.receiveOrder();
+
+        log.info(order.toString());
     }
 }
