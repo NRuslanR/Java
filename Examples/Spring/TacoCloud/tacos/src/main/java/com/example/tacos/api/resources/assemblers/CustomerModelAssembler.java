@@ -2,13 +2,13 @@ package com.example.tacos.api.resources.assemblers;
 
 import com.example.tacos.api.controllers.OrderApiController;
 import com.example.tacos.api.resources.CustomerModel;
-import com.example.tacos.domain.User;
+import com.example.tacos.domain.Customer;
 
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerModelAssembler extends RepresentationModelAssemblerSupport<User, CustomerModel> 
+public class CustomerModelAssembler extends RepresentationModelAssemblerSupport<Customer, CustomerModel> 
 {
 
     public CustomerModelAssembler() {
@@ -17,13 +17,13 @@ public class CustomerModelAssembler extends RepresentationModelAssemblerSupport<
     }
 
     @Override
-    public CustomerModel toModel(User entity) {
+    public CustomerModel toModel(Customer entity) {
 
         return instantiateModel(entity);
     }
     
     @Override
-    protected CustomerModel instantiateModel(User entity) {
+    protected CustomerModel instantiateModel(Customer entity) {
       
         CustomerModel model = new CustomerModel();
 

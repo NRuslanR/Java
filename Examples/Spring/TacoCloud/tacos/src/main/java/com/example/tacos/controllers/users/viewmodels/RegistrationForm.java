@@ -1,6 +1,7 @@
 package com.example.tacos.controllers.users.viewmodels;
 
 import com.example.tacos.domain.User;
+import com.example.tacos.domain.UserInfo;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -22,8 +23,9 @@ public class RegistrationForm {
     {
         return 
             new User(
-                username, passwordEncoder.encode(password), fullname,
-                street, city, state, zip, phone
+                username,
+                passwordEncoder.encode(password),
+                new UserInfo(fullname, phone, street, city, state, zip)
             );
     }
 }

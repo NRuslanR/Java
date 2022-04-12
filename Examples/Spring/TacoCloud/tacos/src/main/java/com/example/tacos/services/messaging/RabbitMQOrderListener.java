@@ -2,20 +2,19 @@ package com.example.tacos.services.messaging;
 
 import com.example.tacos.domain.Order;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jms.annotation.JmsListener;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class JmsOrderListener {
+public class RabbitMQOrderListener {
 
-    //@JmsListener(destination = "{@orderQueue.queueName")
+    @RabbitListener(queues = { "#{messagingProperties.getOrdersDestination()}" })
     public void receiveOrder(Order order)
     {
-        log.info(order.toString());
+        log.info("Listened for order: " + order);
     }
     
 }

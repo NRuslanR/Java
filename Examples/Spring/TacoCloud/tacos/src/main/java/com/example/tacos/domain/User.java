@@ -3,7 +3,10 @@ package com.example.tacos.domain;
 import java.util.Arrays;
 import java.util.Collection;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,21 +29,48 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class User implements UserDetails {
 
-    private static final long serialVersionUID = 4L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private final String username;
     private final String password;
-    private final String fullname;
-    private final String street;
-    private final String city;
-    private final String state;
-    private final String zip;
+    
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "fullname", column = @Column(name = "fullname"))
+    })
+    private final UserInfo userInfo;
 
-    private final String phoneNumber;
+    public String getFullname()
+    {
+        return userInfo.getFullname();
+    }
+
+    public String getPhoneNumber()
+    {
+        return userInfo.getFullname();
+    }
+
+    public String getStreet()
+    {
+        return userInfo.getStreet();
+    }
+
+    public String getCity()
+    {
+        return userInfo.getCity();
+    }
+
+    public String getState()
+    {
+        return userInfo.getState();
+    }
+
+    public String getZip()
+    {
+        return userInfo.getZip();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

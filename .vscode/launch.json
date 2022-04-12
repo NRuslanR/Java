@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch App",
+            "request": "launch",
+            "mainClass": "rabbitmq.hello.App",
+            "projectName": "hello"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-TacoCloudApplication<tacos>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
@@ -9,6 +16,17 @@
             "mainClass": "com.example.tacos.TacoCloudApplication",
             "projectName": "tacos",
             "args": ""
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DemoApplication<demo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.example.demo.DemoApplication",
+            "projectName": "demo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }

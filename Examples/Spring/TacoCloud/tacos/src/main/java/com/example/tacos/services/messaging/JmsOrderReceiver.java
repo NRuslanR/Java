@@ -10,7 +10,7 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.stereotype.Service;
 
-@Service
+@Service(/*"orderReceivingService"*/)
 public class JmsOrderReceiver implements OrderReceivingService {
 
     private final JmsTemplate jms;
@@ -39,5 +39,4 @@ public class JmsOrderReceiver implements OrderReceivingService {
         return (Order) jms.receiveAndConvert(destination);
     }
     
-
 }

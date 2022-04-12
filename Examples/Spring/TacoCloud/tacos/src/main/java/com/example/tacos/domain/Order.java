@@ -86,8 +86,8 @@ public class Order implements Serializable {
     )
     private List<Taco> tacos;
 
-    @ManyToOne(targetEntity = User.class)
-    private User user;
+    @ManyToOne(targetEntity = Customer.class)
+    private Customer customer;
     
     @PrePersist
     void placedAt()

@@ -54,7 +54,7 @@ public class OrderModelAssembler extends RepresentationModelAssemblerSupport<Ord
         model.setCcNumber(entity.getCcNumber());
         model.setCity(entity.getCity());
 
-        CustomerModel customerModel = customerModelAssembler.toModel(entity.getUser());
+        CustomerModel customerModel = customerModelAssembler.toModel(entity.getCustomer());
 
         model.setCustomer(customerModel);
 

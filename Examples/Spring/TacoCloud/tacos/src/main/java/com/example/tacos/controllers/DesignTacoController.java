@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -33,6 +35,8 @@ public class DesignTacoController {
 
     private final IngredientRepository ingredientRepository;
     private final TacoRepository tacoRepository;
+
+    @Qualifier("orderReceivingService")
     private final OrderReceivingService orderReceivingService;
 
     @Autowired
@@ -110,6 +114,9 @@ public class DesignTacoController {
     {
         Order order = orderReceivingService.receiveOrder();
 
-        log.info(order.toString());
+        if (order != null)
+            log.info(order.toString());
+
+        else log.info("Order is not found");
     }
 }

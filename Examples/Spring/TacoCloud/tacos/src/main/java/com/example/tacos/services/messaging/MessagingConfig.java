@@ -8,21 +8,31 @@ import javax.jms.Destination;
 import com.example.tacos.domain.Order;
 
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 
 @Configuration
+@EnableConfigurationProperties(MessagingProperties.class)
 public class MessagingConfig {
     
+    @Autowired
+    private MessagingProperties messagingProperties;
+
     @Bean
     public Destination orderQueue()
     {
-        return new ActiveMQQueue("tacocloud.orders.queue");
+        ActiveMQQueue activeMQQueue = new ActiveMQQueue(messagingProperties.getOrdersDestination());
+
+        return activeMQQueue;
     }
 
     @Bean
-    public MappingJackson2MessageConverter messageConverter()
+    public MappingJackson2MessageConverter jmsMessageConverter()
     {
         MappingJackson2MessageConverter converter =
                 new MappingJackson2MessageConverter();
@@ -36,5 +46,11 @@ public class MessagingConfig {
         converter.setTypeIdMappings(typeIdMappings);
         
         return converter;
+    }
+
+    @Bean("messageConverter")
+    public MessageConverter amqpMessageConverter()
+    {
+        return new Jackson2JsonMessageConverter();
     }
 }

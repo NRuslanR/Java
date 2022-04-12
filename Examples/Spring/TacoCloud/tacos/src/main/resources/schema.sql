@@ -55,10 +55,10 @@ cc_number varchar(16) not null,
 cc_expiration varchar(5) not null,
 cc_cvv varchar(3) not null,
 placed_at timestamp not null,
-user_id bigint not null
+customer_id bigint not null
 );
 
-alter table orders add constraint orders_user_id__users_id_fkey foreign key (user_id) references users(id);
+alter table orders add constraint orders_user_id__users_id_fkey foreign key (customer_id) references users(id);
 
 create table if not exists orders_tacos (
 order_id bigint not null,

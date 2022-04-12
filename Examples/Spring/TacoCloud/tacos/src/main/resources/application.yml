@@ -5,6 +5,9 @@ logging:
 taco:
     orders:
         pageSize: 10
+    messaging:
+        destinations:
+            orders: tacocloud.orders.queue
 
 spring:
     profiles:
@@ -39,8 +42,16 @@ spring:
 
     jms:
         template: 
-            default-destination: tacocloud.orders.queue
+            default-destination: ${taco.messaging.destinations.orders}
             
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: full_access
+        password: 123456
+        template:
+            receive-timeout: 10000
+        
 server:
     port: 8081
 ---
