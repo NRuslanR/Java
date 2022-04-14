@@ -9,7 +9,7 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("orderMessagingService")
+@Service(/*"orderMessagingService"*/)
 public class RabbitMQOrderMessagingService implements OrderMessagingService {
 
     private final RabbitTemplate rabbitTemplate;

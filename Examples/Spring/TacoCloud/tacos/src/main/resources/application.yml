@@ -7,7 +7,7 @@ taco:
         pageSize: 10
     messaging:
         destinations:
-            orders: tacocloud.orders.queue
+            orders: tacocloud.orders.dest
 
 spring:
     profiles:
@@ -51,7 +51,23 @@ spring:
         password: 123456
         template:
             receive-timeout: 10000
-        
+    kafka:
+        bootstrap-servers:
+            - localhost:9092
+        template:
+            default-topic: ${taco.messaging.destinations.orders}
+
+        #consumer:
+        #    group-id: tacocloud_group
+        #    auto-offset-reset: earliest
+        #    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+        #    value-deserializer: org.springframework.kafka.support.serializer.ByteArrayDeserializer
+    
+        #producer:
+        #    bootstrap-servers: localhost:9092
+        #    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+        #    value-serializer: org.springframework.kafka.support.serializer.ByteArraySerializer
+
 server:
     port: 8081
 ---

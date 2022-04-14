@@ -48,7 +48,7 @@ public class MessagingConfig {
         return converter;
     }
 
-    @Bean("messageConverter")
+    //@Bean("messageConverter")
     public MessageConverter amqpMessageConverter()
     {
         return new Jackson2JsonMessageConverter();
