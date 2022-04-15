@@ -67,6 +67,16 @@ spring:
         #    bootstrap-servers: localhost:9092
         #    key-serializer: org.apache.kafka.common.serialization.StringSerializer
         #    value-serializer: org.springframework.kafka.support.serializer.ByteArraySerializer
+taco:
+    orders:
+        pageSize: 15
+        
+    email:
+        host: imap.gmail.com
+        mailbox: INBOX
+        username: nruslanr95
+        password: Brainsort123
+        poll-rate: 10000
 
 server:
     port: 8081
@@ -104,4 +114,11 @@ logging:
 taco:
     orders:
         pageSize: 15
+        
+    email:
+        host: imap.gmail.com
+        mailbox: INBOX
+        username: nruslanr95
+        password: Brainsort123
+        poll-rate: 10000
 
