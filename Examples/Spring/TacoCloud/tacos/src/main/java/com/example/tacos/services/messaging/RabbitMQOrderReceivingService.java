@@ -16,10 +16,8 @@ public class RabbitMQOrderReceivingService implements OrderReceivingService {
     private MessageConverter messageConverter;
 
     public RabbitMQOrderReceivingService(
-        MessagingProperties messagingProperties,
-        RabbitTemplate rabbitTemplate
-    )
-    {
+            MessagingProperties messagingProperties,
+            RabbitTemplate rabbitTemplate) {
         this.messagingProperties = messagingProperties;
         this.rabbitTemplate = rabbitTemplate;
         this.messageConverter = rabbitTemplate.getMessageConverter();
@@ -27,25 +25,23 @@ public class RabbitMQOrderReceivingService implements OrderReceivingService {
 
     @Override
     public Order receiveOrder() throws Exception {
-        
+
         return receiveWithAutoConversion();
     }
 
     private Order receiveWithAutoConversion() {
-        
-        return 
-            rabbitTemplate.receiveAndConvert(
-                messagingProperties.getOrdersDestination(), 
-                new ParameterizedTypeReference<Order>() {}
-            );
+
+        return rabbitTemplate.receiveAndConvert(
+                messagingProperties.getOrdersDestination(),
+                new ParameterizedTypeReference<Order>() {
+                });
     }
 
     private Order receiveOrderWithManualConversion() {
 
-        Message message = 
-            rabbitTemplate.receive(messagingProperties.getOrdersDestination());
+        Message message = rabbitTemplate.receive(messagingProperties.getOrdersDestination());
 
-        return (message != null) ? (Order)messageConverter.fromMessage(message) : null;
+        return (message != null) ? (Order) messageConverter.fromMessage(message) : null;
     }
-    
+
 }

@@ -1,6 +1,8 @@
 package com.example.tacos.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +55,24 @@ public class Taco implements Serializable {
     @Size(min = 1, message = "Ingredient list must contain at least one ingredient")
     private List<Ingredient> ingredients;
 
+    public Taco()
+    {
+        ingredients = new ArrayList<>();
+    }
+    
     @PrePersist
     void createdAt()
     {
         this.createdAt = new Date();
+    }
+
+    public void addIngredient(Ingredient ingredient)
+    {
+        ingredients.add(ingredient);
+    }
+
+    public void addIngredients(Collection<Ingredient> ingredients)
+    {
+        this.ingredients.addAll(ingredients);
     }
 }

@@ -105,6 +105,7 @@ spring:
             base-path: /api/v2
 
 server:
+    host: localhost
     port: 8081
     
 logging:
