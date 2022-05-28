@@ -11,15 +11,20 @@ import java.util.UUID;
 import com.example.tacos.api.controllers.DesignTacoApiController;
 import com.example.tacos.api.resources.assemblers.IngredientModelAssembler;
 import com.example.tacos.api.resources.assemblers.TacoModelAssembler;
+//import com.example.tacos.data.jpa.reactive.TacoRepository;
 import com.example.tacos.data.jpa.TacoRepository;
 import com.example.tacos.domain.Ingredient;
 import com.example.tacos.domain.Taco;
-import com.example.tacos.domain.Ingredient.Type;
+//import com.example.tacos.domain.reactive.mongo.Ingredient;
+//import com.example.tacos.domain.reactive.mongo.Taco;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 public class DesignTacoApiControllerTests {
     
@@ -73,7 +78,7 @@ public class DesignTacoApiControllerTests {
             
         TacoRepository tacoRepository = Mockito.mock(TacoRepository.class);
 
-        when(tacoRepository.save(any())).thenReturn(savedTaco);
+        when(tacoRepository.save(any())).thenReturn(Mono.just(savedTaco));
 
         DesignTacoApiController controller =
             new DesignTacoApiController(
@@ -112,8 +117,8 @@ public class DesignTacoApiControllerTests {
         taco.setName(String.format("Taco%d", number));
         taco.setIngredients(
             Arrays.asList(
-                new Ingredient("INGA", "Ingredient A", Type.WRAP),
-                new Ingredient("INGB", "Ingredient B", Type.PROTEIN)
+                new Ingredient("INGA", "Ingredient A", Ingredient.Type.WRAP),
+                new Ingredient("INGB", "Ingredient B", Ingredient.Type.PROTEIN)
             )
         );
 

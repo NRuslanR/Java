@@ -1,8 +1,9 @@
 package com.example.tacos.api.resources.assemblers;
 
 import com.example.tacos.api.controllers.OrderApiController;
-import com.example.tacos.api.resources.CustomerModel;
+import com.example.tacocloudmodels.CustomerModel;
 import com.example.tacos.domain.Customer;
+//import com.example.tacos.domain.reactive.mongo.Customer;
 
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;

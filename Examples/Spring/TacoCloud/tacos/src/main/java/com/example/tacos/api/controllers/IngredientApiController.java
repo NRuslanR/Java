@@ -2,10 +2,12 @@ package com.example.tacos.api.controllers;
 
 import java.util.Optional;
 
-import com.example.tacos.api.resources.IngredientModel;
+import com.example.tacocloudmodels.IngredientModel;
 import com.example.tacos.api.resources.assemblers.IngredientModelAssembler;
+//import com.example.tacos.data.jpa.reactive.IngredientRepository;
 import com.example.tacos.data.jpa.IngredientRepository;
 import com.example.tacos.domain.Ingredient;
+//import com.example.tacos.domain.reactive.mongo.Ingredient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -39,7 +41,8 @@ public class IngredientApiController {
     @GetMapping
     public ResponseEntity<CollectionModel<IngredientModel>> GetAllIngredients()
     {
-        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
+        Iterable<Ingredient> ingredients = 
+            ingredientRepository.findAll();
 
         CollectionModel<IngredientModel> model = 
             ingredientModelAssembler.toCollectionModel(ingredients);
@@ -59,7 +62,8 @@ public class IngredientApiController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<IngredientModel> GetIngredientById(@PathVariable("id") String id)
     {
-        Optional<Ingredient> ingredient = ingredientRepository.findById(id);
+        Optional<Ingredient> ingredient = 
+            ingredientRepository.findById(id);
 
         if (ingredient.isEmpty())
             return ResponseEntity.notFound().build();

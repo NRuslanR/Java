@@ -4,9 +4,10 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.example.tacos.api.controllers.DesignTacoApiController;
-import com.example.tacos.api.resources.IngredientModel;
-import com.example.tacos.api.resources.TacoModel;
+import com.example.tacocloudmodels.IngredientModel;
+import com.example.tacocloudmodels.TacoModel;
 import com.example.tacos.domain.Taco;
+//import com.example.tacos.domain.reactive.mongo.Taco;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;

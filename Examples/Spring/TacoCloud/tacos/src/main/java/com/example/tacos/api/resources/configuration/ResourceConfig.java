@@ -1,7 +1,7 @@
 package com.example.tacos.api.resources.configuration;
 
-import com.example.tacos.api.resources.TacoModel;
 import com.example.tacos.domain.Taco;
+import com.example.tacocloudmodels.TacoModel;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

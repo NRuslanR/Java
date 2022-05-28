@@ -2,6 +2,12 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TacoserviceregistryApplication",
+            "request": "launch",
+            "mainClass": "com.example.tacoserviceregistry.TacoserviceregistryApplication"
+        },
+        {
+            "type": "java",
             "name": "Launch App",
             "request": "launch",
             "mainClass": "rabbitmq.hello.App",
@@ -25,6 +31,28 @@
             "console": "internalConsole",
             "mainClass": "com.example.demo.DemoApplication",
             "projectName": "demo",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TacoserviceregistryApplication<tacoserviceregistry>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.example.tacoserviceregistry.TacoserviceregistryApplication",
+            "projectName": "tacoserviceregistry",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TacoCloudConsumingApplication<tacocloudconsuming>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.example.tacocloudconsuming.TacoCloudConsumingApplication",
+            "projectName": "tacocloudconsuming",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }

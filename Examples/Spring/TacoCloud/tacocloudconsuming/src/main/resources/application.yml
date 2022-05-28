@@ -1,0 +1,10 @@
+spring:
+    application:
+        name: tacocloud-consumer
+        
+server:
+    port: 8082
+
+tacocloud:
+    api:
+        url: http://tacocloud-service/api

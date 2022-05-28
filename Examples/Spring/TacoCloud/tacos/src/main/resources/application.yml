@@ -56,17 +56,6 @@ spring:
             - localhost:9092
         template:
             default-topic: ${taco.messaging.destinations.orders}
-
-        #consumer:
-        #    group-id: tacocloud_group
-        #    auto-offset-reset: earliest
-        #    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        #    value-deserializer: org.springframework.kafka.support.serializer.ByteArrayDeserializer
-    
-        #producer:
-        #    bootstrap-servers: localhost:9092
-        #    key-serializer: org.apache.kafka.common.serialization.StringSerializer
-        #    value-serializer: org.springframework.kafka.support.serializer.ByteArraySerializer
 taco:
     orders:
         pageSize: 15
@@ -84,6 +73,9 @@ server:
 spring:
     profiles: prod
 
+    application: 
+        name: tacocloud-service
+
     thymeleaf:
         cache: true
 
@@ -100,9 +92,38 @@ spring:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
         show-sql: true
         generate-ddl: false
+
     data:
         rest:
             base-path: /api/v2
+
+        mongodb:
+            host: localhost
+            port: 27017
+            username: taco_user
+            password: 123456
+            database: tacocloud 
+
+    rabbitmq:
+        host: localhost
+        port: 5672
+        username: full_access
+        password: 123456
+        template:
+            receive-timeout: 10000
+    kafka:
+        bootstrap-servers:
+            - localhost:9092
+            
+        template:
+            default-topic: ${taco.messaging.destinations.orders}
+eureka:
+    client:
+        should-unregister-on-shutdown: false
+        service-url:
+            defaultZone: 
+                http://localhost:8761/eureka,
+                http://localhost:8762/eureka
 
 server:
     host: localhost

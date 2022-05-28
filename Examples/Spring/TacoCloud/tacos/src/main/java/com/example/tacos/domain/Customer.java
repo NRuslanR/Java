@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @Table(name = "users")
 @NoArgsConstructor(force = true)
 @RequiredArgsConstructor
+@Document(collection = "users")
 public class Customer implements Serializable {
     
     private static final long serialVersionUID = 4L;
@@ -28,7 +31,7 @@ public class Customer implements Serializable {
 
     @Embedded
     private final UserInfo userInfo;
-
+  
     public String getFullname()
     {
         return userInfo.getFullname();

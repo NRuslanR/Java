@@ -4,10 +4,11 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.example.tacos.api.controllers.OrderApiController;
-import com.example.tacos.api.resources.CustomerModel;
-import com.example.tacos.api.resources.OrderModel;
-import com.example.tacos.api.resources.TacoModel;
+import com.example.tacocloudmodels.CustomerModel;
+import com.example.tacocloudmodels.OrderModel;
+import com.example.tacocloudmodels.TacoModel;
 import com.example.tacos.domain.Order;
+//import com.example.tacos.domain.reactive.mongo.Order;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -54,7 +55,8 @@ public class OrderModelAssembler extends RepresentationModelAssemblerSupport<Ord
         model.setCcNumber(entity.getCcNumber());
         model.setCity(entity.getCity());
 
-        CustomerModel customerModel = customerModelAssembler.toModel(entity.getCustomer());
+        CustomerModel customerModel = 
+            customerModelAssembler.toModel(entity.getCustomer());
 
         model.setCustomer(customerModel);
 

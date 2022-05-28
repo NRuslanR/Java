@@ -1,11 +1,15 @@
 package com.example.tacos.api.controllers;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.example.tacos.api.resources.TacoModel;
+import com.example.tacocloudmodels.TacoModel;
 import com.example.tacos.api.resources.assemblers.TacoModelAssembler;
 import com.example.tacos.data.jpa.TacoRepository;
 import com.example.tacos.domain.Taco;
+//import com.example.tacos.data.jpa.reactive.TacoRepository;
+//import com.example.tacos.domain.reactive.mongo.Taco;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -40,6 +44,12 @@ public class RecentTacosApiController {
         PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Direction.DESC, "createdAt"));
 
         List<Taco> recentTacos = tacoRepository.findAll(pageRequest).getContent();
+               /* tacoRepository
+                    .findAll()
+                    .sort(Comparator.comparing(Taco::getCreatedAt).reversed())
+                    .take(3)
+                    .toStream()
+                    .collect(Collectors.toList()); */
 
         CollectionModel<TacoModel> model = tacoModelAssembler.toCollectionModel(recentTacos);
 

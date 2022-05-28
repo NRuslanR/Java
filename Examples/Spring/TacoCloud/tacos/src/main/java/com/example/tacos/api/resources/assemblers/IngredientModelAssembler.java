@@ -1,8 +1,9 @@
 package com.example.tacos.api.resources.assemblers;
 
 import com.example.tacos.api.controllers.IngredientApiController;
-import com.example.tacos.api.resources.IngredientModel;
+import com.example.tacocloudmodels.IngredientModel;
 import com.example.tacos.domain.Ingredient;
+//import com.example.tacos.domain.reactive.mongo.Ingredient;
 
 import org.springframework.hateoas.CollectionModel;
 

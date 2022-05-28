@@ -3,7 +3,7 @@ package com.example.tacos.api.consume;
 import java.time.Duration;
 import java.util.Arrays;
 
-import com.example.tacos.api.resources.TacoModel;
+import com.example.tacocloudmodels.TacoModel;
 import com.example.tacos.domain.Ingredient;
 import com.example.tacos.domain.Taco;
 

@@ -3,11 +3,12 @@ package com.example.tacos.api.controllers;
 import java.util.Comparator;
 import java.util.Optional;
 
-import com.example.tacos.api.resources.TacoModel;
+import com.example.tacocloudmodels.TacoModel;
 import com.example.tacos.api.resources.assemblers.TacoModelAssembler;
-import com.example.tacos.data.OrderRepository;
+//import com.example.tacos.data.jpa.reactive.TacoRepository;
 import com.example.tacos.data.jpa.TacoRepository;
 import com.example.tacos.domain.Taco;
+//import com.example.tacos.domain.reactive.mongo.Taco;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -31,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 @RestController
 @RequestMapping(path = { "/api/design" }, produces = { "application/json" })
@@ -64,9 +64,7 @@ public class DesignTacoApiController {
     public Mono<ResponseEntity<CollectionModel<TacoModel>>> GetAllTacosAsync()
     {
         return 
-            Flux.defer(
-                () -> Flux.fromIterable(tacoRepository.findAll())
-            )
+            Flux.defer(() -> Flux.fromIterable(tacoRepository.findAll()))
             .flatMap(
                 t -> Mono.just(tacoModelAssembler.toModel(t))
             )
@@ -89,7 +87,9 @@ public class DesignTacoApiController {
     {
         PageRequest pageRequest = PageRequest.of(0, 12, Sort.by(Direction.DESC, "createdAt"));
 
-        Iterable<Taco> recentTacos = tacoRepository.findAll(pageRequest).getContent();
+        Iterable<Taco> recentTacos = 
+                //tacoRepository.findByOrderByCreatedAt().take(12).toIterable();
+            tacoRepository.findAll(pageRequest).getContent();
         
         CollectionModel<TacoModel> model =  CreateTacoModels(recentTacos);
 
@@ -100,9 +100,7 @@ public class DesignTacoApiController {
     public Mono<ResponseEntity<CollectionModel<TacoModel>>> GetRecentTacosAsync()
     {
         return
-            Flux.defer(
-                () -> Flux.fromIterable(tacoRepository.findAll())
-            )
+            Flux.defer(() -> Flux.fromIterable(tacoRepository.findAll()))
             .take(12)
                 .sort(Comparator.comparing(Taco::getCreatedAt).reversed())
             .flatMap(t -> Mono.just(tacoModelAssembler.toModel(t)))
@@ -147,13 +145,16 @@ public class DesignTacoApiController {
     public Mono<ResponseEntity<TacoModel>> GetTacoByIdAsync(@PathVariable("id") long tacoId)
     {
         return
-            Mono.defer(
-                () -> Mono.justOrEmpty(tacoRepository.findById(tacoId))
-            )
+        Mono.defer(() -> Mono.just(tacoRepository.findById(tacoId)))
             .flatMap(
-                t -> Mono.just(ResponseEntity.ok(tacoModelAssembler.toModel(t)))
-            )
-            .switchIfEmpty(Mono.just(ResponseEntity.notFound().build())); 
+                t -> {
+
+                    return t.isEmpty() ? 
+                        Mono.just(ResponseEntity.notFound().build()):
+                        Mono.just(ResponseEntity.ok(tacoModelAssembler.toModel(t.get())));
+                }
+            );
+                
     }
 
     @RequestMapping(
@@ -175,9 +176,7 @@ public class DesignTacoApiController {
     public Mono<ResponseEntity<TacoModel>> CreateTacoAsync(@RequestBody /*Mono<Taco>*/ Taco tacoMono)
     {
         return
-            Mono.defer(
-                () -> Mono.just(tacoRepository.save(tacoMono))
-            )
+            Mono.defer(() -> Mono.just(tacoRepository.save(tacoMono)))
             .flatMap(t -> Mono.just(tacoModelAssembler.toModel(t)))
             .flatMap(
                 model -> 
@@ -204,14 +203,14 @@ public class DesignTacoApiController {
     public Mono<ResponseEntity<Void>> DeleteTacoAsync(@PathVariable("tacoId") long tacoId)
     {
         return 
-            Mono.defer(
-                () -> {
-                    
-                    tacoRepository.deleteById(tacoId);
+        Mono.defer(() -> {
 
-                    return Mono.just(new ResponseEntity<Void>(HttpStatus.OK));
-                }
-            )
+            tacoRepository.deleteById(tacoId);
+
+            return Mono.empty();
+
+        })
+            .flatMap(v -> Mono.just(new ResponseEntity<Void>(HttpStatus.OK)))
             .onErrorResume(
                 EmptyResultDataAccessException.class, 
                 e -> Mono.just(ResponseEntity.noContent().build())

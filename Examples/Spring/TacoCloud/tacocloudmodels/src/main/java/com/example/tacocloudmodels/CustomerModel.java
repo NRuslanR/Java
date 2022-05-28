@@ -1,10 +1,9 @@
-package com.example.tacos.api.resources;
+package com.example.tacocloudmodels;
 
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Relation(value = "customer")

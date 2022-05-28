@@ -1,9 +1,8 @@
-package com.example.tacos.api.resources;
+package com.example.tacocloudmodels;
 
 import java.util.Collection;
 import java.util.Date;
 
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
