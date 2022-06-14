@@ -6,7 +6,7 @@ spring:
         config:
             server:
                 git: 
-                    uri: https://github.com/NRuslanR/tacocloud-config
+                    uri: https://github.com/NRuslanR/Java/tree/master/Examples/Spring/TacoCloud/configserver
 
 server:
     port: 8888
