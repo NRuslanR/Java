@@ -1,0 +1,15 @@
+server:
+    port: 8989
+
+turbine:
+    app-config: tacocloud-service
+    cluster-name-expression: "'default'"
+
+spring:
+    cloud:
+        config:
+            import-check:
+                enabled: false
+
+    application:
+        name: "TacoCloud-Turbine"

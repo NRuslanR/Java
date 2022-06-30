@@ -6,7 +6,10 @@ spring:
         config:
             server:
                 git: 
-                    uri: https://github.com/NRuslanR/Java/tree/master/Examples/Spring/TacoCloud/configserver
+                    uri: https://github.com/NRuslanR/tacocloud-config
+                    username: NRuslanR
+                    password: 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
+                    default-label: main
 
 server:
     port: 8888

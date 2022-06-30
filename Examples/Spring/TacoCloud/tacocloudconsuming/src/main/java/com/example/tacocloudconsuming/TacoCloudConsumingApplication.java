@@ -2,6 +2,7 @@ package com.example.tacocloudconsuming;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 
@@ -10,10 +11,11 @@ import org.springframework.context.annotation.FilterType;
     excludeFilters = {
         @ComponentScan.Filter(
                         type = FilterType.ASSIGNABLE_TYPE, 
-                        value = TacoCloudApiConsumeController.class
+                        value = TacoCloudApiConsumeFeignController.class
         )
     }
 )
+@EnableHystrix
 public class TacoCloudConsumingApplication {
 
 	public static void main(String[] args) {

@@ -2,6 +2,10 @@ package com.example.tacocloudconsuming;
 
 import com.example.tacocloudmodels.IngredientModel;
 import com.example.tacocloudmodels.TacoModel;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -17,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.Builder;
-
+import com.example.tacocloudmodels.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -40,6 +44,28 @@ public class TacoCloudApiConsumeController {
     }
 
     @GetMapping("/ingredients")
+    @HystrixCommand(
+            fallbackMethod = "GetDefaultIngredients",
+            commandProperties = {
+                    @HystrixProperty(
+                    name="circuitBreaker.requestVolumeThreshold",
+                    value = "5"
+                    ),
+                    @HystrixProperty(
+                    name="circuitBreaker.errorThresholdPercentage",
+                    value = "50"
+                    ),
+                    @HystrixProperty(
+                    name="metrics.rollingStats.timeInMilliseconds",
+                    value = "50000"
+                ),
+                    @HystrixProperty(
+                    name="circuitBreaker.sleepWindowInMilliseconds",
+                    value = "15000"
+                )
+            }
+            
+    )
     public ResponseEntity<CollectionModel<IngredientModel>> GetAllIngredients()
     {
         return restTemplate.exchange(
@@ -50,6 +76,17 @@ public class TacoCloudApiConsumeController {
                 
             })
         ;
+    }
+
+    public ResponseEntity<CollectionModel<IngredientModel>> GetDefaultIngredients()
+    {
+        return ResponseEntity.ok(
+            CollectionModel.of(
+                Arrays.asList(
+                    new IngredientModel() 
+                )
+            )
+        );
     }
 
     @GetMapping("/ingredients/{id}")

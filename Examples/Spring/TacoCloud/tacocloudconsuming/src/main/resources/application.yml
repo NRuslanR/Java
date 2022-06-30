@@ -8,3 +8,9 @@ server:
 tacocloud:
     api:
         url: http://tacocloud-service/api
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
