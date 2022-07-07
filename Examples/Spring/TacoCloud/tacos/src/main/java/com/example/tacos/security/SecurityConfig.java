@@ -4,6 +4,8 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest.EndpointRequestMatcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -32,8 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/design", "/orders")
                 .hasRole("USER")
-            .antMatchers("/", "/**")
+                .antMatchers("/", "/**")
                 .permitAll()
+                .antMatchers("/monitor/**")
+                .hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
@@ -53,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .and()
             .httpBasic();
-             
+        
     }
 
     @Override

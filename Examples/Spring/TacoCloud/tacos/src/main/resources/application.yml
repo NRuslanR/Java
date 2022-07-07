@@ -124,6 +124,27 @@ spring:
             import-check:
                 enabled: false
 
+management:
+    endpoint:
+        health: 
+            show-details: always
+            
+    endpoints:
+        web:
+            base-path: /monitor
+            exposure:
+                include: '*'
+                exclude:
+                    - heapdump
+                
+    info:
+        application:
+            name: ${spring.application.name}
+            description: Training Web Application for Spring Boot learning
+        
+        git:
+            mode: full
+
     #config:
     #    import: "configserver: http://localhost:8888"
 
