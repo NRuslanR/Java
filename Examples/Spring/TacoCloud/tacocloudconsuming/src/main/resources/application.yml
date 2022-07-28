@@ -2,6 +2,21 @@ spring:
     application:
         name: tacocloud-consumer
         
+    boot:
+        admin:
+            client:
+                url: http://localhost:9090
+
+    eureka:
+        instance:
+            metadata-map:
+                user.name: taco_consume_user
+                user.password: 123456
+
+        client:
+            service-url:
+                defaultZone: http://localhost:8761/eureka
+                
 server:
     port: 8082
 
@@ -12,5 +27,8 @@ tacocloud:
 management:
     endpoints:
         web:
+            exposure:
+                include: "*"
+        jmx: 
             exposure:
                 include: "*"

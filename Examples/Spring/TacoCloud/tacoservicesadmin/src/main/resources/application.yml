@@ -1,0 +1,17 @@
+server:
+    port: 9090
+
+spring:
+    application:
+        name: Spring Boot Admin Server
+        
+    eureka:
+        client:
+            register-with-eureka: false
+            service-url:
+                defaultZone: http://localhost:8761/eureka
+
+    security:
+        user:
+            name: admin
+            password: admin

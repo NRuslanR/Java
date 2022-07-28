@@ -124,6 +124,24 @@ spring:
             import-check:
                 enabled: false
 
+    boot:
+        admin:
+            client:
+                url: http://localhost:9090
+
+    eureka:
+        instance:
+            metadata-map:
+                user.name: ruslan
+                user.password: 123456
+
+        client:
+            service-url:
+                defaultZone: http://localhost:8761/eureka
+
+    jmx:
+        enabled: true
+         
 management:
     endpoint:
         health: 
@@ -136,6 +154,9 @@ management:
                 include: '*'
                 exclude:
                     - heapdump
+        jmx:
+            exposure:
+                include: '*'
                 
     info:
         application:
