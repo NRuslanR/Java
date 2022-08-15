@@ -78,7 +78,7 @@ public class DesignTacoApiControllerTests {
             
         TacoRepository tacoRepository = Mockito.mock(TacoRepository.class);
 
-        when(tacoRepository.save(any())).thenReturn(Mono.just(savedTaco));
+        when(tacoRepository.save(any())).thenReturn(savedTaco);
 
         DesignTacoApiController controller =
             new DesignTacoApiController(

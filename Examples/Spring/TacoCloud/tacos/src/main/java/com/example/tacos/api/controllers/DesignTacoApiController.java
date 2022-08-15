@@ -175,15 +175,21 @@ public class DesignTacoApiController {
     )
     public Mono<ResponseEntity<TacoModel>> CreateTacoAsync(@RequestBody /*Mono<Taco>*/ Taco tacoMono)
     {
-        return
-            Mono.defer(() -> Mono.just(tacoRepository.save(tacoMono)))
-            .flatMap(t -> Mono.just(tacoModelAssembler.toModel(t)))
+        return Mono.just(ResponseEntity.ok(new TacoModel()));
+        /*Mono.defer(
+                () -> {
+                    return Mono.just(tacoRepository.save(tacoMono));
+                }
+            )
+            .flatMap(t -> {
+                return Mono.just(tacoModelAssembler.toModel(t));
+            })
             .flatMap(
                 model -> 
                     Mono.just(
                         new ResponseEntity<TacoModel>(model, HttpStatus.CREATED)
                     )
-            );
+            );*/
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{tacoId}")
