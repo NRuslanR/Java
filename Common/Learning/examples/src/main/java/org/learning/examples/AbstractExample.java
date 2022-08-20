@@ -6,6 +6,11 @@ public abstract class AbstractExample implements Example {
 
     private String name;
 
+    public AbstractExample()
+    {
+
+    }
+    
     protected AbstractExample(String name)
     {
         this.name = name;
@@ -27,13 +32,13 @@ public abstract class AbstractExample implements Example {
 
     @Override
     public boolean equals(Object obj) {
-
-        return (obj != null) && equals((Example) obj);
+        
+        return !Objects.isNull(obj) && getClass().equals(obj.getClass()) && equals((Example) obj);
     }
     
-    public boolean equals(Example example)
+    protected boolean equals(Example example)
     {
-        return getName() == example.getName();
+        return getName().equals(example.getName());
     }
 
     @Override

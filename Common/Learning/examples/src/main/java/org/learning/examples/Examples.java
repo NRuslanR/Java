@@ -1,6 +1,7 @@
 package org.learning.examples;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Objects;
@@ -9,6 +10,16 @@ import java.util.Optional;
 public class Examples implements Iterable<Example> {
 
     private Collection<Example> examples;
+
+    public static Examples of(Example... examples) throws ExampleException
+    {
+        return of(Arrays.asList(examples));
+    }
+
+    public static Examples of(Collection<Example> initial) throws ExampleException
+    {
+        return new Examples(initial);
+    }
 
     public Examples() {
 
@@ -85,7 +96,7 @@ public class Examples implements Iterable<Example> {
 
     public Optional<Example> findExample(String name)
     {
-        return examples.stream().filter(e -> e.getName() == name).findFirst();
+        return examples.stream().filter(e -> e.getName().equals(name)).findFirst();
     }
 
     public void run(String name) throws ExampleException

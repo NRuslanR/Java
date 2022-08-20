@@ -34,13 +34,10 @@ public class ExamplesTests {
     @Test(expected = ExampleAlreadyExistsException.class)
     public void shouldNotAddExampleWhenItAlreadyExists() throws ExampleException
     {
-        Examples examples = 
-            new Examples(
-                Arrays.asList(
+        Examples examples = Examples.of(
                     new DummyExample("Dummy1"),
                     new DummyExample("Dummy2"),
                     new DummyExample("Dummy3")
-                )
                 );
         
         examples.add(new DummyExample("Dummy2"));
@@ -49,7 +46,7 @@ public class ExamplesTests {
     @Test
     public void shouldRemoveExampleWhenItExists() throws ExampleException
     {
-        Examples examples = new Examples(Arrays.asList(new DummyExample("Dummy")));
+        Examples examples = Examples.of(Arrays.asList(new DummyExample("Dummy")));
 
         examples.remove("Dummy");
 
