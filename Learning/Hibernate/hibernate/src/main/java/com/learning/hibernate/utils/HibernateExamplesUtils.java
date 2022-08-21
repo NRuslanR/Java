@@ -11,6 +11,7 @@ import org.apache.commons.lang3.RandomUtils;
 import org.learning.examples.Example;
 import org.learning.examples.Examples;
 
+import com.learning.hibernate.examples.EntityLifeCycleEventsExample;
 import com.learning.hibernate.examples.EntityLifeCycleExample;
 
 public class HibernateExamplesUtils {
@@ -22,7 +23,11 @@ public class HibernateExamplesUtils {
         if (!Objects.isNull(examples))
             return examples;
 
-        examples = Examples.of(new EntityLifeCycleExample());
+        examples = 
+                Examples.of(
+                    new EntityLifeCycleExample(),
+                    new EntityLifeCycleEventsExample()
+                );
 
         return examples;
     }

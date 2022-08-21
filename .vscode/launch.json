@@ -2,6 +2,14 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch HibernateLearning",
+            "request": "launch",
+            "mainClass": "com.learning.hibernate.HibernateLearning",
+            "args": "EntityLifeCycleEvents",
+            "projectName": "hibernate"
+        },
+        {
+            "type": "java",
             "name": "Launch TacoserviceregistryApplication",
             "request": "launch",
             "mainClass": "com.example.tacoserviceregistry.TacoserviceregistryApplication"
