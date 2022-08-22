@@ -20,6 +20,7 @@
         <mapping class="com.learning.hibernate.entities.Product" />
         <mapping class="com.learning.hibernate.entities.ProductCategory"/>
         <mapping class="com.learning.hibernate.entities.DummyEntity" />
+        <mapping class="com.learning.hibernate.entities.Person"/>
         <!--<mapping class="com.learning.hibernate.entities.OrderItem"/>
         <mapping class="com.learning.hibernate.entities.Order"/>-->
     </session-factory>
