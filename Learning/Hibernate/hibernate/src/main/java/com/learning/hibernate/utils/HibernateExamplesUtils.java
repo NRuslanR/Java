@@ -1,7 +1,6 @@
 package com.learning.hibernate.utils;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +13,7 @@ import org.learning.examples.Examples;
 import com.learning.hibernate.examples.AttributeConvertersExample;
 import com.learning.hibernate.examples.EntityLifeCycleEventsExample;
 import com.learning.hibernate.examples.EntityLifeCycleExample;
+import com.learning.hibernate.examples.OneToOneExample;
 
 public class HibernateExamplesUtils {
     
@@ -28,7 +28,8 @@ public class HibernateExamplesUtils {
                 Examples.of(
                     new EntityLifeCycleExample(),
                     new EntityLifeCycleEventsExample(),
-                    new AttributeConvertersExample()
+                    new AttributeConvertersExample(),
+                    new OneToOneExample()
                 );
 
         return examples;
