@@ -1,6 +1,5 @@
 package com.learning.hibernate.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,11 +8,9 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public class ExampleEntity extends AbstractExampleEntity {
+public class SequencedExampleEntity extends AbstractExampleEntity {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_gen")
     private long id;
-    
 }

@@ -1,28 +1,17 @@
 package com.learning.hibernate.entities;
 
-import java.util.Objects;
-
-import org.apache.commons.lang3.ObjectUtils;
-
 import com.learning.hibernate.values.Money;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
 import jakarta.persistence.Transient;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -38,7 +27,8 @@ import lombok.ToString;
 @Entity
 @Table(name = "Products")
 @AttributeOverride(name = "id", column = @Column(name = "product_id"))
-public class Product extends ExampleEntity {
+@SequenceGenerator(name = "pk_gen", sequenceName = "product_pk_gen", initialValue = 300, allocationSize = 3)
+public class Product extends SequencedExampleEntity {
     
     @NonNull private String name;
 
