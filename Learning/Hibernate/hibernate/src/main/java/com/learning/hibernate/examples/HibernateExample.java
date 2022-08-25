@@ -3,6 +3,7 @@ package com.learning.hibernate.examples;
 import static java.lang.System.out;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
@@ -65,6 +66,19 @@ public abstract class HibernateExample extends AbstractExample {
                 type)
                 .setMaxResults(1)
                 .getSingleResult();
+    }
+    
+    protected <T> List<T> fetchAllEntities(Session session, Class<T> type)
+    {
+        return 
+            session.createQuery(
+                String.format(
+                    "select e from %s e",
+                    type.getName()
+                ),
+                type
+            )
+            .getResultList();
     }
     
     protected <T> T fetchEntityById(Session session, Object id, Class<T> type)

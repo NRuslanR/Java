@@ -66,7 +66,7 @@ public class EntityLifeCycleExample extends HibernateExample {
         p1.setDescription("Updated description");
         p1.setPrice(new Money(BigDecimal.valueOf(2932.35454), "USD"));
 
-        HibernateUtils.wrapInTransaction(session, () -> {});
+        HibernateUtils.runFlushedTransaction(session);
         
         Product p2 = fetchProductById(session, p1.getId());
 

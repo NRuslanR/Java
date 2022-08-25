@@ -78,6 +78,11 @@ public class HibernateUtils {
         return sessionImplementor.getPersistenceContext().reentrantSafeEntityEntries();
     }
 
+    public static void runFlushedTransaction(Session session)
+    {
+        wrapInTransaction(session, () -> {});
+    }
+    
     public static void wrapInTransaction(Session session, Runnable operation)
     {
         EntityTransaction transaction = session.beginTransaction();

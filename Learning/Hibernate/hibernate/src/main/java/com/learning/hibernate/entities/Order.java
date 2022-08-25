@@ -1,9 +1,7 @@
 package com.learning.hibernate.entities;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Basic;
@@ -40,6 +38,6 @@ public class Order extends ExampleEntity {
     private Date creationDate;
 
     @ManyToOne(targetEntity = Customer.class)
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "person_id")
     private Customer customer;
 }
