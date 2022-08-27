@@ -9,6 +9,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.engine.spi.EntityEntry;
+import org.hibernate.engine.spi.PersistenceContext;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.service.ServiceRegistry;
 
@@ -66,16 +67,17 @@ public class HibernateUtils {
     
     public static int getManagedEntityCount(Session session)
     {
-        SessionImplementor sessionImplementor = (SessionImplementor) session;
-
-        return sessionImplementor.getPersistenceContext().getNumberOfManagedEntities();
+        return getPersistenceContext(session).getNumberOfManagedEntities();
     }
 
     public static Map.Entry<Object,EntityEntry>[] getManagedEntities(Session session)
     {
-        SessionImplementor sessionImplementor = (SessionImplementor)session;
+        return getPersistenceContext(session).reentrantSafeEntityEntries();
+    }
 
-        return sessionImplementor.getPersistenceContext().reentrantSafeEntityEntries();
+    public static PersistenceContext getPersistenceContext(Session session)
+    {
+        return ((SessionImplementor) session).getPersistenceContext();
     }
 
     public static void runFlushedTransaction(Session session)

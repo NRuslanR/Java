@@ -27,7 +27,7 @@ public class Employee extends Person {
     public Employee(PersonName name, Address address, Workstation workstation)
     {
         super(name, address);
-        this.workstation = workstation;
+        setWorkstation(workstation);
     }
     
     @NonNull

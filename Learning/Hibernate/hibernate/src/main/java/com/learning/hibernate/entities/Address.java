@@ -33,6 +33,7 @@ public class Address extends SequencedExampleEntity {
     private String room;
 
     @OneToOne(mappedBy = "address")
+    @ToString.Exclude
     private Person person;
     
 }

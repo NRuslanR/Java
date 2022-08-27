@@ -31,8 +31,8 @@ public class Person extends ExampleEntity {
 
     public Person(PersonName name, Address address)
     {
-        this.name = name;
-        this.address = address;
+        setName(name);
+        setAddress(address);
     }
 
     @NonNull
