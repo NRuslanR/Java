@@ -19,13 +19,14 @@
         <property name="hibernate.dbcp.maxWaitMillis">-1</property>
         <mapping class="com.learning.hibernate.entities.Product" />
         <mapping class="com.learning.hibernate.entities.ProductCategory"/>
+        <mapping class="com.learning.hibernate.entities.CategorizedProduct"/>
         <mapping class="com.learning.hibernate.entities.DummyEntity" />
         <mapping class="com.learning.hibernate.entities.Person"/>
         <mapping class="com.learning.hibernate.entities.Address" />
         <mapping class="com.learning.hibernate.entities.OrderItem"/>
         <mapping class="com.learning.hibernate.entities.Employee" />
         <mapping class="com.learning.hibernate.entities.Workstation"/>
-        <!--<mapping class="com.learning.hibernate.entities.Order"/>
-        <mapping class="com.learning.hibernate.entities.Customer"/>-->
+        <mapping class="com.learning.hibernate.entities.Order"/>
+        <mapping class="com.learning.hibernate.entities.Customer"/>
     </session-factory>
 </hibernate-configuration>
