@@ -28,5 +28,11 @@
         <mapping class="com.learning.hibernate.entities.Workstation"/>
         <mapping class="com.learning.hibernate.entities.Order"/>
         <mapping class="com.learning.hibernate.entities.Customer"/>
+        <mapping class="com.learning.hibernate.entities.Oak"/>
+        <mapping class="com.learning.hibernate.entities.Spruce"/>
+        <mapping class="com.learning.hibernate.entities.Tree"/>
+        <mapping class="com.learning.hibernate.entities.SuperHero"/>
+        <mapping class="com.learning.hibernate.entities.SpiderMan"/>
+        <mapping class="com.learning.hibernate.entities.Batman"/>
     </session-factory>
 </hibernate-configuration>
