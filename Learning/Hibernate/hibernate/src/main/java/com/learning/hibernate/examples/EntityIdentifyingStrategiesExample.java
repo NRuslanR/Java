@@ -73,11 +73,24 @@ public class EntityIdentifyingStrategiesExample extends HibernateExample {
             Arrays.asList(spiderMan, person, workstation, spruce, meal, book)
         );
 
-        out.printf("fetched spider man:%n%s%n", fetchAnyEntity(session, SpiderMan.class));
-        out.printf("fetched person:%n%s%n", fetchAnyEntity(session, Person.class));
-        out.printf("fetched workstation:%n%s%n", fetchAnyEntity(session, Workstation.class));
-        out.printf("fetched spruce:%n%s%n", fetchAnyEntity(session, Spruce.class));
-        out.printf("fetched meal:%n%s%n", fetchAnyEntity(session, Meal.class));
-        out.printf("fetched book:%n%s%n", fetchAnyEntity(session, Book.class));
+        Arrays
+            .asList(spiderMan, person, workstation, spruce, meal, book)
+            .forEach(e ->
+                printEntityAfterPersistAndAfterFlushThen(session, e)
+            );
+    }
+
+    private void printEntityAfterPersistAndAfterFlushThen(Session session, Object entity)
+    {
+        session.persist(entity);
+
+        out.printf("%s after persist:%n%s%n", entity.getClass().getSimpleName(), entity);
+
+        HibernateUtils.runFlushedTransaction(session);
+
+        out.printf(
+            "%s after flush:%n%s%n", entity.getClass().getSimpleName(),
+            fetchAnyEntity(session, entity.getClass())
+        );
     }
 }
