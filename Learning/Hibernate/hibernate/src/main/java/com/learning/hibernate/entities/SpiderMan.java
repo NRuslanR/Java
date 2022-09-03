@@ -2,7 +2,6 @@ package com.learning.hibernate.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -14,7 +13,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @Entity
 @Table(name = "spider_mans")
-@SequenceGenerator(name = "pk_gen", sequenceName = "super_hero_pk_gen", initialValue = 20)
 public class SpiderMan extends SuperHero {
     
     public SpiderMan(String name, double webCapacity)

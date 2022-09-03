@@ -9,11 +9,11 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public class ExampleEntity extends AbstractExampleEntity {
+public class ExampleEntity extends AbstractExampleEntity<Long> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
     
 }

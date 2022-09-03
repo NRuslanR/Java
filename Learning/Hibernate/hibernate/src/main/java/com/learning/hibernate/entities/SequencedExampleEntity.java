@@ -8,9 +8,9 @@ import lombok.Data;
 
 @Data
 @MappedSuperclass
-public class SequencedExampleEntity extends AbstractExampleEntity {
+public class SequencedExampleEntity extends AbstractExampleEntity<Long> {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pk_gen")
-    private long id;
+    private Long id;
 }

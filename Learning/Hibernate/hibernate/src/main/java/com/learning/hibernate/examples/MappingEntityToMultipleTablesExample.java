@@ -37,7 +37,7 @@ public class MappingEntityToMultipleTablesExample extends HibernateExample {
 
         Meal fetchedMeal = 
             session.createQuery(
-                "select m from Meal m where id=" + meal.getId(), 
+                "select m from Meal m where id='" + meal.getId() + "'", 
                 Meal.class
                 ).getSingleResult();
             

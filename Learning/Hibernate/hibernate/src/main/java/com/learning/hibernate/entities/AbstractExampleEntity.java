@@ -5,7 +5,7 @@ import java.util.Objects;
 import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
-public abstract class AbstractExampleEntity {
+public abstract class AbstractExampleEntity<IdType> {
     
     public boolean equals(Object other)
     {
@@ -16,9 +16,9 @@ public abstract class AbstractExampleEntity {
 
     protected boolean equals(AbstractExampleEntity other)
     {
-        return getId() == other.getId();
+        return getId().equals(other.getId());
     }
 
-    public abstract long getId();
+    public abstract IdType getId();
     
 }

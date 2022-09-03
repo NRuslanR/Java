@@ -1,5 +1,8 @@
 package com.learning.hibernate.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import com.learning.hibernate.values.Allergens;
 import com.learning.hibernate.values.Money;
 
@@ -8,6 +11,8 @@ import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SecondaryTable;
 import jakarta.persistence.SecondaryTables;
@@ -35,8 +40,17 @@ import lombok.ToString;
         pkJoinColumns = @PrimaryKeyJoinColumn(name = "meal_id")
     ) 
 })
-public class Meal extends ExampleEntity {
+public class Meal extends AbstractExampleEntity<String> {
     
+    @Id
+    @GeneratedValue(generator = "meal_id_gen")
+    @GenericGenerator(
+        name = "meal_id_gen",
+        parameters = { @Parameter(name = "prefix", value = "HELLO") },
+        strategy = "com.learning.hibernate.entities.generators.PrefixedSequencedIdGenerator"
+    )
+    private String id;
+
     @NonNull
     private String name;
 
@@ -67,4 +81,11 @@ public class Meal extends ExampleEntity {
     @NonNull
     @Embedded
     private Allergens allergens;
+
+    @Override
+    public String getId() {
+        
+        return id;
+
+    }
 }
