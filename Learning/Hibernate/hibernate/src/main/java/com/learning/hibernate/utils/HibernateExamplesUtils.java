@@ -11,6 +11,7 @@ import org.learning.examples.Example;
 import org.learning.examples.Examples;
 
 import com.learning.hibernate.examples.AttributeConvertersExample;
+import com.learning.hibernate.examples.EntityIdentifyingStrategiesExample;
 import com.learning.hibernate.examples.EntityLifeCycleEventsExample;
 import com.learning.hibernate.examples.EntityLifeCycleExample;
 import com.learning.hibernate.examples.InheritanceExample;
@@ -35,7 +36,8 @@ public class HibernateExamplesUtils {
                     new OneToOneExample(),
                     new OneToManyExample(),
                     new InheritanceExample(),
-                    new MappingEntityToMultipleTablesExample()
+                    new MappingEntityToMultipleTablesExample(),
+                    new EntityIdentifyingStrategiesExample()
                 );
 
         return examples;

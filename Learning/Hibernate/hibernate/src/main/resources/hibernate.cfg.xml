@@ -7,7 +7,7 @@
         <property name="connection.url">jdbc:postgresql://localhost:5432/hibernate_learning</property>
         <property name="connection.username">hibernate_user</property>
         <property name="connection.password">123456</property>
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">20</property>
         <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
@@ -35,5 +35,6 @@
         <mapping class="com.learning.hibernate.entities.SpiderMan"/>
         <mapping class="com.learning.hibernate.entities.Batman"/>
         <mapping class="com.learning.hibernate.entities.Meal"/>
+        <mapping class="com.learning.hibernate.entities.Book"/>
     </session-factory>
 </hibernate-configuration>

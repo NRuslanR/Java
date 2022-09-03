@@ -5,7 +5,7 @@
             "name": "Launch HibernateLearning",
             "request": "launch",
             "mainClass": "com.learning.hibernate.HibernateLearning",
-            "args": "MappingEntityToMultipleTables",
+            "args": "EntityIdentifyingStrategies",
             "projectName": "hibernate"
         },
         {
