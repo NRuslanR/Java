@@ -85,4 +85,22 @@ public abstract class HibernateExample extends AbstractExample {
     {
         return session.get(type, id);
     }
+
+    protected <T> void printEntities(Iterable<T> entities)
+    {
+        printEntities(entities, "");
+    }
+
+    protected <T> void printEntities(Iterable<T> entities, String title)
+    {
+        String entityRowsString = 
+            StringUtils.join(entities, System.getProperty("line.separator"));
+
+        String output =
+            !title.isEmpty() ? 
+                String.format("%s:%n%s%n", title, entityRowsString) :
+                String.format("%n%s%n", entityRowsString);
+
+        out.print(output);
+    }
 }

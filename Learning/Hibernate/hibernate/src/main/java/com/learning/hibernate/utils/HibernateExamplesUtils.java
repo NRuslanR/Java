@@ -15,6 +15,7 @@ import com.learning.hibernate.examples.EntityIdentifyingStrategiesExample;
 import com.learning.hibernate.examples.EntityLifeCycleEventsExample;
 import com.learning.hibernate.examples.EntityLifeCycleExample;
 import com.learning.hibernate.examples.InheritanceExample;
+import com.learning.hibernate.examples.JPAQueryTypesExample;
 import com.learning.hibernate.examples.MappingEntityToMultipleTablesExample;
 import com.learning.hibernate.examples.OneToManyExample;
 import com.learning.hibernate.examples.OneToOneExample;
@@ -37,7 +38,8 @@ public class HibernateExamplesUtils {
                     new OneToManyExample(),
                     new InheritanceExample(),
                     new MappingEntityToMultipleTablesExample(),
-                    new EntityIdentifyingStrategiesExample()
+                    new EntityIdentifyingStrategiesExample(),
+                    new JPAQueryTypesExample()
                 );
 
         return examples;

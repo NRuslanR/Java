@@ -2,18 +2,32 @@ package com.learning.hibernate.values;
 
 import java.util.Objects;
 
+import jakarta.persistence.Transient;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
 public class PersonName {
     
     private static final PersonName emptyInstance = 
         new PersonName("", "");
-
+    
     private final String firstName;
     private final String lastName;
+
+    @Transient
+    private final String fullName;
+
+    public PersonName(String firstName, String lastName)
+    {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullName = String.format("%s %s", lastName, firstName);
+    }
+
+    public String fullName()
+    {
+        return fullName;
+    }
 
     public static PersonName empty()
     {
@@ -23,6 +37,14 @@ public class PersonName {
     public static PersonName of(String firstName, String lastName)
     {
         return new PersonName(firstName, lastName);
+    }
+
+    public static PersonName ofFullName(String fullName)
+    {
+        String[] nameParts = fullName.split(" ");
+
+        return nameParts.length == 2 ? 
+            PersonName.of(nameParts[1], nameParts[0]) : PersonName.empty();
     }
 
     @Override

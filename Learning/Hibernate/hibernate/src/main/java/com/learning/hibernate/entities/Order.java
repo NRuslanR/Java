@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -29,7 +31,21 @@ import lombok.ToString;
 @Entity
 @Table(name = "orders")
 @AttributeOverride(name = "id", column = @Column(name = "order_id"))
+@NamedQueries(value = {
+    @NamedQuery(
+        name = Order.FIND_ALL_ORDERS_AT_CREATION_DATE,
+        query = "select o from Order o where o.creationDate = ?1"
+    ),
+    @NamedQuery(
+        name = Order.FIND_ALL_ORDERS_BY_CUSTOMER,
+        query = "select o from Order o where " +
+        "o.customer.id = :id"
+    )
+})
 public class Order extends ExampleEntity {
+    
+    public static final String FIND_ALL_ORDERS_AT_CREATION_DATE = "Order.findAllOrdersAtCreationDate";
+    public static final String FIND_ALL_ORDERS_BY_CUSTOMER = "Order.findAllOrdersByCustomer";
     
     @Basic
     @NonNull
