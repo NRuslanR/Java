@@ -5,17 +5,22 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.sql.DataSource;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Environment;
 import org.hibernate.engine.spi.EntityEntry;
 import org.hibernate.engine.spi.PersistenceContext;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.service.ServiceRegistry;
+import org.postgresql.ds.PGPoolingDataSource;
 
 import jakarta.persistence.EntityTransaction;
+import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
 
 public class HibernateUtils {
     
@@ -33,11 +38,14 @@ public class HibernateUtils {
     {
         if (!Objects.isNull(sessionFactory))
             return;
-
+    
         serviceRegistry = new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml").build();
-
+                .configure("hibernate.cfg.xml")
+                .applySetting(Environment.DATASOURCE, getDataSource())
+                .build();
+        
         try {
+
             MetadataSources metadataSources = new MetadataSources(serviceRegistry);
 
             Metadata metadata = metadataSources.buildMetadata();
@@ -53,6 +61,23 @@ public class HibernateUtils {
         }
     }
 
+    private static DataSource getDataSource()
+    {
+        PGPoolingDataSource dataSource = new PGPoolingDataSource();
+
+        dataSource.setURL("jdbc:postgresql://localhost:5432/hibernate_learning");
+        dataSource.setUser("hibernate_user");
+        dataSource.setPassword("123456");
+
+        return ProxyDataSourceBuilder
+                .create(dataSource)
+                .asJson()
+                .countQuery()
+                .logQueryToSysOut()
+                .multiline()
+                .build();
+    }
+    
     public static void shutdown()
     {
         if (!Objects.isNull(serviceRegistry)) {

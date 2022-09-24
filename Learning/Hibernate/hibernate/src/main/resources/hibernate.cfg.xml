@@ -12,6 +12,10 @@
         <property name="show_sql">true</property>
         <property name="current_session_context_class">thread</property>
         <property name="hbm2ddl.auto">create</property>
+        <!--<property name="hibernate.jdbc.batch_size">5</property>-->
+        <property name="hibernate.order_inserts">true</property>
+        <property name="hibernate.order_updates">true</property>
+        <property name="hibernate.batch_versioned_data">true</property>
         <property name="hibernate.dbcp.initialSize">5</property>
         <property name="hibernate.dbcp.maxTotal">20</property>
         <property name="hibernate.dbcp.maxIdle">10</property>
@@ -36,5 +40,7 @@
         <mapping class="com.learning.hibernate.entities.Batman"/>
         <mapping class="com.learning.hibernate.entities.Meal"/>
         <mapping class="com.learning.hibernate.entities.Book"/>
+        <mapping class="com.learning.hibernate.entities.ShoppingCart"/>
+        <mapping class="com.learning.hibernate.entities.ShoppingCartItem"/>
     </session-factory>
 </hibernate-configuration>
