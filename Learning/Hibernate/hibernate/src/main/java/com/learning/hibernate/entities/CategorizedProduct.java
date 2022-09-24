@@ -1,7 +1,8 @@
 package com.learning.hibernate.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -20,4 +21,9 @@ public class CategorizedProduct extends ExampleEntity {
     
     @NonNull
     private String name;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    private ProductCategory category;
 }

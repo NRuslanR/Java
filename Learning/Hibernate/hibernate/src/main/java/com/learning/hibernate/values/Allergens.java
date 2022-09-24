@@ -21,4 +21,9 @@ public class Allergens {
 
     @Column(table = "allergens", name = "sesame_seeds")
     private final boolean sesameSeeds;
+
+    public static Allergens of(boolean peanuts, boolean celery, boolean sesameSeeds)
+    {
+        return new Allergens(peanuts, celery, sesameSeeds);
+    }
 }

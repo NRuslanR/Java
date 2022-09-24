@@ -88,4 +88,9 @@ public class Meal extends AbstractExampleEntity<String> {
         return id;
 
     }
+
+    public static Meal of(String name, Money price, Allergens allergens)
+    {
+        return new Meal(name, price, allergens);
+    }
 }
