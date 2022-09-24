@@ -2,6 +2,8 @@ package com.learning.hibernate.entities;
 
 import com.learning.hibernate.values.Money;
 
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.AttributeOverrides;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -33,6 +35,15 @@ public class ShoppingCartItem extends SequencedExampleEntity {
     @NonNull
     @Column(name = "product_price")
     @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name = "amount", column = @Column(name = "product_price_amount")),
+        @AttributeOverride(name = "currency", column = @Column(name = "product_price_currency"))
+    })
     private Money productPrice;
+
+    public static ShoppingCartItem of(int quantity, String productName, Money productPrice)
+    {
+        return new ShoppingCartItem(quantity, productName, productPrice);
+    }
 
 }

@@ -12,6 +12,7 @@ import org.learning.examples.Examples;
 
 import com.learning.hibernate.examples.AttributeConvertersExample;
 import com.learning.hibernate.examples.BatchOperationsExample;
+import com.learning.hibernate.examples.CriteriaAPIExample;
 import com.learning.hibernate.examples.EntityIdentifyingStrategiesExample;
 import com.learning.hibernate.examples.EntityLifeCycleEventsExample;
 import com.learning.hibernate.examples.EntityLifeCycleExample;
@@ -43,7 +44,8 @@ public class HibernateExamplesUtils {
                     new EntityIdentifyingStrategiesExample(),
                     new JPAQueryTypesExample(),
                     new SortingAndPaginationExample(),
-                    new BatchOperationsExample()
+                    new BatchOperationsExample(),
+                    new CriteriaAPIExample()
                 );
 
         return examples;
