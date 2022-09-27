@@ -1,5 +1,7 @@
 package com.learning.hibernate.examples;
 
+import static java.lang.System.out;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.IntStream;
@@ -12,12 +14,6 @@ import com.learning.hibernate.entities.ShoppingCart;
 import com.learning.hibernate.entities.ShoppingCartItem;
 import com.learning.hibernate.utils.HibernateUtils;
 import com.learning.hibernate.values.Money;
-
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
-
-import static java.lang.System.out;
 
 public class FetchModeExample extends HibernateExample {
 
