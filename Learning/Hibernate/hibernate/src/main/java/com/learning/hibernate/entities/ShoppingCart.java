@@ -8,6 +8,8 @@ import org.hibernate.annotations.FetchMode;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.NamedAttributeNode;
+import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -25,6 +27,10 @@ import lombok.ToString;
 @Table(name = "shopping_carts")
 @ToString(callSuper = true)
 @SequenceGenerator(name = "pk_gen", sequenceName = "sc_pk_gen", initialValue = 100)
+@NamedEntityGraph(
+    name = "shopping-cart-graph", 
+    attributeNodes = @NamedAttributeNode(value = "items")
+)
 public class ShoppingCart extends SequencedExampleEntity {
     
     @NonNull

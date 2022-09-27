@@ -13,6 +13,7 @@ import org.learning.examples.Examples;
 import com.learning.hibernate.examples.AttributeConvertersExample;
 import com.learning.hibernate.examples.BatchOperationsExample;
 import com.learning.hibernate.examples.CriteriaAPIExample;
+import com.learning.hibernate.examples.EntityGraphExample;
 import com.learning.hibernate.examples.EntityIdentifyingStrategiesExample;
 import com.learning.hibernate.examples.EntityLifeCycleEventsExample;
 import com.learning.hibernate.examples.EntityLifeCycleExample;
@@ -47,7 +48,8 @@ public class HibernateExamplesUtils {
                     new SortingAndPaginationExample(),
                     new BatchOperationsExample(),
                     new CriteriaAPIExample(),
-                    new FetchModeExample()
+                    new FetchModeExample(),
+                    new EntityGraphExample()
                 );
 
         return examples;
