@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -53,6 +56,7 @@ public class ProductCategory extends ExampleEntity {
         mappedBy = "category"
     )
     @OrderBy("name DESC, id ASC")
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<CategorizedProduct> products;
     
     public Collection<CategorizedProduct> getProducts()

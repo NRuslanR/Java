@@ -16,6 +16,7 @@ import com.learning.hibernate.examples.CriteriaAPIExample;
 import com.learning.hibernate.examples.EntityIdentifyingStrategiesExample;
 import com.learning.hibernate.examples.EntityLifeCycleEventsExample;
 import com.learning.hibernate.examples.EntityLifeCycleExample;
+import com.learning.hibernate.examples.FetchModeExample;
 import com.learning.hibernate.examples.InheritanceExample;
 import com.learning.hibernate.examples.JPAQueryTypesExample;
 import com.learning.hibernate.examples.MappingEntityToMultipleTablesExample;
@@ -45,7 +46,8 @@ public class HibernateExamplesUtils {
                     new JPAQueryTypesExample(),
                     new SortingAndPaginationExample(),
                     new BatchOperationsExample(),
-                    new CriteriaAPIExample()
+                    new CriteriaAPIExample(),
+                    new FetchModeExample()
                 );
 
         return examples;

@@ -2,6 +2,9 @@ package com.learning.hibernate.entities;
 
 import java.util.Collection;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -29,5 +32,12 @@ public class ShoppingCart extends SequencedExampleEntity {
 
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
+    @Fetch(FetchMode.JOIN)
     private Collection<ShoppingCartItem> items;
+
+    public ShoppingCart(String name, Collection<ShoppingCartItem> items)
+    {
+        this.name = name;
+        this.items = items;
+    }
 }
