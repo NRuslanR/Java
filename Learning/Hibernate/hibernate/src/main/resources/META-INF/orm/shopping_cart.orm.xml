@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<entity-mappings 
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd" version="2.2"
+>
+    <entity class="com.learning.hibernate.entities.ShoppingCart">
+        <table name="shopping_carts_jpa"></table>
+        <sequence-generator name="pk_gen" sequence-name="sc_pk_gen" initial-value="20000">
+        </sequence-generator>
+        <named-entity-graph name="shopping-cart-graph">
+            <named-attribute-node name="items" />
+        </named-entity-graph>
+        <attributes>
+            <basic name="name"></basic>
+            <basic name="items"></basic>
+            <one-to-many 
+                name="items" 
+                target-entity="com.learning.hibernate.entities.ShoppingCartItem"
+                orphan-removal="true"
+            >
+                <join-column name="cart_id" referenced-column-name="id" />
+                <cascade>
+                    <cascade-all />
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+</entity-mappings>

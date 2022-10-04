@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<entity-mappings 
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd" version="2.2"
+>
+    <mapped-superclass class="com.learning.hibernate.entities.AbstractExampleEntity">
+  
+    </mapped-superclass>
+
+    <mapped-superclass class="com.learning.hibernate.entities.ExampleEntity">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY" />
+            
+            </id>
+            <basic name="id">
+                <column name="id"/>
+            </basic>
+        </attributes>
+    </mapped-superclass>
+
+    <mapped-superclass class="com.learning.hibernate.entities.SequencedExampleEntity">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="SEQUENCE" generator="pk_gen" />
+            </id>
+            <basic name="id">
+                <column name="id"/>
+            </basic>
+        </attributes>
+    </mapped-superclass>
+    
+</entity-mappings>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<entity-mappings 
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd" version="2.2"
+>
+    <entity class="com.learning.hibernate.entities.ShoppingCartItem">
+        <table name="shopping_cart_items_jpa"></table>
+        <sequence-generator 
+            name="pk_gen" 
+            sequence-name="sc_item_pk_gen" 
+            initial-value="9"
+        ></sequence-generator>
+        <attributes>
+            <basic name="quantity"></basic>
+            <basic name="productName">
+                <column name="product_name"/>
+            </basic>
+            <basic name="productPrice">
+                <column name="product_price"/>      
+            </basic>
+            <embedded name="productPrice">
+                <attribute-override name="amount">
+                    <column name="jpa_product_price_amount"/>
+                </attribute-override>
+                <attribute-override name="currency">
+                    <column name="jpa_product_price_currency"/>
+                </attribute-override>
+            </embedded>
+        </attributes>
+    </entity>
+</entity-mappings>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<entity-mappings 
+    xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+        http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd" version="2.2"
+>
+    <entity class="com.learning.hibernate.entities.Batman">
+        <table name="batmans"></table>
+        <sequence-generator 
+            name="pk_gen" 
+            sequence-name="super_hero_pk_gen" 
+            initial-value="20"
+        >
+        </sequence-generator>
+        <attributes>
+            <basic name="hasCloak">
+                <column name="has_cloak"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

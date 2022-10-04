@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence  xmlns="https://jakarta.ee/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    version="3.0"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+>
+    <persistence-unit name="hibernate-learning" transaction-type="RESOURCE_LOCAL">
+        <description>Hibernate Learning</description>
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <mapping-file>META-INF/orm/base.orm.xml</mapping-file>
+        <mapping-file>META-INF/orm/address.orm.xml</mapping-file>
+        <mapping-file>META-INF/orm/batman.orm.xml</mapping-file>
+        <mapping-file>META-INF/orm/book.orm.xml</mapping-file>
+        <mapping-file>META-INF/orm/person.orm.xml</mapping-file>
+        <mapping-file>META-INF/orm/shopping_cart.orm.xml</mapping-file>
+        <mapping-file>META-INF/orm/shopping_cart_item.orm.xml</mapping-file>
+
+        <shared-cache-mode>DISABLE_SELECTIVE</shared-cache-mode>
+        
+        <validation-mode>AUTO</validation-mode>
+        
+        <properties>
+            <property  name="jakarta.persistence.lock.timeout" value="100" />
+            <property  name="jakarta.persistence.query.timeout" value="100" />
+            <property  name="jakarta.persistence.schema-generation.database.action" value="drop-and-create" />
+            <!--<property  name="jakarta.persistence.schema-generation.create-script-source" value="schema-create.sql" />
+            <property  name="jakarta.persistence.schema-generation.drop-script-source" value="schema-drope.sql" />
+            <property  name="jakarta.persistence.sql-load-script-source" value="schema-initialization.sql"/>
+            -->
+            <property name="jakarta.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+            <property name="jakarta.persistence.schema-generation.scripts.create-target" value="./create.sql"/>
+            <property name="jakarta.persistence.schema-generation.scripts.drop-target" value="./drop.sql"/>
+ 
+            <property 
+                name="jakarta.persistence.jdbc.url"
+                value="jdbc:postgresql://localhost:5432/hibernate_learning"
+            />
+            <property
+                name="jakarta.persistence.jdbc.user"
+                value="hibernate_user" 
+            />
+            <property 
+                name="jakarta.persistence.jdbc.password"
+                value="123456"
+            />
+            <property 
+                name="jakarta.persistence.jdbc.driver"
+                value="org.postgresql.Driver"
+            />
+            <property name="jakarta.persistence.jdbc.pool_size" value="20" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.current_session_context_class" value="thread" />
+            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <!--<property name="hibernate.jdbc.batch_size">5</property>-->
+            <property name="hibernate.order_inserts" value="true" />
+            <property name="hibernate.order_updates" value="true" />
+            <property name="hibernate.batch_versioned_data" value="true" />
+            <property name="hibernate.dbcp.initialSize" value="5" />
+            <property name="hibernate.dbcp.maxTotal" value="20" />
+            <property name="hibernate.dbcp.maxIdle" value="10" />
+            <property name="hibernate.dbcp.minTotal" value="5" />
+            <property name="hibernate.dbcp.maxWaitMillis" value="-1" />
+        </properties>
+    </persistence-unit>
+</persistence>

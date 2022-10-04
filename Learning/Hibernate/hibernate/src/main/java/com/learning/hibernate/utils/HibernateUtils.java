@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.RandomUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -19,7 +20,9 @@ import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.service.ServiceRegistry;
 import org.postgresql.ds.PGPoolingDataSource;
 
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
 
 public class HibernateUtils {
@@ -38,11 +41,32 @@ public class HibernateUtils {
     {
         if (!Objects.isNull(sessionFactory))
             return;
-    
-        serviceRegistry = new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml")
-                .applySetting(Environment.DATASOURCE, getDataSource())
-                .build();
+        
+        if (RandomUtils.nextInt(0, 100) > 5)
+            doJPAInitialization();
+
+        else doHibernateInitialization();
+    }
+
+    private static void doJPAInitialization()
+    {
+        EntityManagerFactory entityManagerFactory =
+            Persistence
+                .createEntityManagerFactory(
+                    "hibernate-learning", 
+                    Map.of(Environment.DATASOURCE, getDataSource())
+                );
+
+        sessionFactory = entityManagerFactory.unwrap(SessionFactory.class);
+    }
+
+    private static void doHibernateInitialization()
+    {
+        serviceRegistry = 
+                new StandardServiceRegistryBuilder()
+                    .configure("hibernate.cfg.xml")
+                    .applySetting(Environment.DATASOURCE, getDataSource())
+                    .build();
         
         try {
 
@@ -80,11 +104,11 @@ public class HibernateUtils {
     
     public static void shutdown()
     {
-        if (!Objects.isNull(serviceRegistry)) {
+        if (!Objects.isNull(sessionFactory))
             sessionFactory.close();
 
+        if (!Objects.isNull(serviceRegistry)) 
             StandardServiceRegistryBuilder.destroy(serviceRegistry);
-        }
     }
 
     public static Session newSession() throws Exception

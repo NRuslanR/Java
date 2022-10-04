@@ -7,8 +7,6 @@ import com.learning.hibernate.values.BookId;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -31,7 +29,7 @@ public class Book extends AbstractExampleEntity<BookId> {
 
     @NonNull
     @Column(name = "publishing_datetime")
-    private ZonedDateTime publishingDateTime;;
+    private ZonedDateTime publishingDateTime;
 
     @Override
     public BookId getId() {
